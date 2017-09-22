@@ -11,6 +11,7 @@ const session = require('express-session');
 
 const home = require('./routes/home/index');
 const err404 = require('./routes/404/index');
+const cadastro = require('./routes/cadastro/index');
 
 const app = express();
 
@@ -53,7 +54,9 @@ app.use(session({
 app.use(cookieParser());
 
 app.use('/', home);
+app.use('/cadastro', cadastro);
 app.use('/404', err404);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
