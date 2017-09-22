@@ -1,0 +1,18 @@
+mixin row(items)
+  tr
+    each item, index in items
+      td= item
+
+mixin rowHeader(items)
+  tr(class='table-header')
+    each item, index in items
+      td= item
+//- functions above
+
+block table
+  h2 Tabela criada dinamicamente
+  table
+    each row, index in [{name: 'NOME TRASNPORTADORA', end: 'ENDERECO'}]
+      +rowHeader(row)
+    each row, index in [{name: 'Tranport', end: 'Rua X'}, {name: 'Entrega', end: 'Rua Y'}]
+      +row(row)
