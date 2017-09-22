@@ -57,6 +57,7 @@ app.use('/', home);
 app.use('/cadastro', cadastro);
 app.use('/404', err404);
 
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   res.redirect('/404');
