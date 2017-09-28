@@ -10,7 +10,8 @@ const helmet = require('helmet');
 const session = require('express-session');
 
 const home = require('./routes/home/index.js');
-const cadastro = require('./routes/cadastro/index');
+const cadastro = require('./routes/cadastro/index.js');
+const list = require('./routes/list/index.js');
 const err404 = require('./routes/404/index');
 
 const app = express();
@@ -55,6 +56,7 @@ app.use(cookieParser());
 
 app.use('/', home);
 app.use('/cadastro', cadastro);
+app.use('/list', list);
 app.use('/404', err404);
 
 

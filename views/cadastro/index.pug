@@ -1,61 +1,34 @@
 extends ../layouts/default.pug
 
+mixin create-form(formulario)
+  form(action=formulario.action, method='post')
+    input(type='hidden', id='formType', value=formulario.type)
+    each input,index in formulario.inputs
+      label= input.titulo
+      if input.tipo != "valor"
+        +input-simple("text", "" + input.identificador)
+      else
+        +input-group("R$")
+          +input-simple("text","" + input.identificador)
+      p
+    +submit("" + formulario.submitTxt)
+
 block content
-  p
+
   +panel-primary(cadastroTitle)
     +tab-list(["Adicionar", "Alterar", "Remover"])
       +tab("Adicionar", "active")
         h2 Adicionar
         p
-        form(action='/', method='post')
-          input(type='hidden', id='form-type', value='adicionar')
-          label Estado Origem
-          +input-simple("text","txtEstOri")
-          p
-          label Estado Destino
-          +input-simple("text","txtEstDest")
-          p
-          label Valor/Km
-          +input-group("R$")
-            +input-simple("text","txtValorKm")
-          p
-          label Valor/Kg
-          +input-group("R$")
-            +input-simple("text","txtValorKg")
-          p
-          +submit("Adicionar Taxa")
+        +create-form(formAdicionar)
       +tab("Alterar")
         h2 Alterar
         p
-        form(action='/', method='post')
-          input(type='hidden', id='form-type', value='alterar')
-          label Identificador da Taxa
-          +input-simple("text","txtId")
-          p
-          label Estado Origem
-          +input-simple("text","txtEstOri")
-          p
-          label Estado Destino
-          +input-simple("text","txtEstDest")
-          p
-          label Valor/Km
-          +input-group("R$")
-            +input-simple("text","txtValorKm")
-          p
-          label Valor/Kg
-          +input-group("R$")
-            +input-simple("text","txtValorKg")
-          p
-          +submit("Alterar Taxa")
+        +create-form(formAlterar)
       +tab("Remover")
         h2 Remover
         p
-        form(action='/', method='post')
-          input(type='hidden', id='form-type', value='remover')
-          label Identificador da Taxa
-          +input-simple("text","txtId")
-          p
-          +submit("Remover Taxa")
+        +create-form(formRemover)
 
   +panel-primary(tableLabel)
     +table-striped(tableHeader, tableContent)

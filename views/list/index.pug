@@ -1,0 +1,12 @@
+extends ../layouts/default.pug
+
+block content
+  +panel-primary(listTitle)
+    a.btn(role="button", href=urlCadastroTitle, class="btn-default")=listCadastroTitle
+    if listCadastroSubtitle != undefined
+      p
+      label= listCadastroSubtitle
+      +dropdown(dropdownTitle, dropdownList)
+    p
+  +panel-primary(tableLabel)
+    +table-striped(tableHeader, tableContent)

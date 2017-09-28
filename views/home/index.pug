@@ -2,4 +2,9 @@ extends ../layouts/default.pug
 
 block content
   +panel-primary("Cadastros")
-    a(href="/cadastro") Cadastro Transportadoras
+    p
+    a.btn(role="button", href="/list/transportadoras", class="btn-default") Listar Transportadoras
+    p
+    a.btn(role="button", href="/list/sites", class="btn-default") Listar Sites
+    p
+    a.btn(role="button", href="/list/entregas", class="btn-default") Listar Entrega
