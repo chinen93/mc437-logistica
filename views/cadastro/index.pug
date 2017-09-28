@@ -2,23 +2,24 @@ extends ../layouts/default.pug
 
 block content
   p
-  h2 Formulario arrumado por uma tabela
-  div(id="content", class="cadastro")
-    form(action="../home/cadastro")
-      table
-        tr
-          td
-            label Nome Transportadora
-          td
-            input(name="something", placeholder="Padrão")
-        tr
-          td
-            label Endereço
-          td
-            input(name="something", placeholder="Rua X")
-        tr
-          td
-          td
-            button(type="submit", value="save") Inserir
+  +panel-primary(cadastroTitle)
+    +tab-list(["Adicionar", "Alterar", "Remover"])
+      +tab("Adicionar", "active")
+        p
+        form(action='/')
+          +input("text","txtEstOri","Estado Origem")
+          +input("text","txtEstDest","Estado Destino")
+          label Valor/Km
+          +input-group("R$")
+            +input-simple("text","txtValorKm")
+          label Valor/Kg
+          +input-group("R$")
+            +input-simple("text","txtValorKg")
+          +submit("Adicionar Taxa")
+      +tab("Alterar")
+        p
+      +tab("Remover")
+        p
 
-  include ../includes/table.pug
+  +panel-primary(tableLabel)
+    +table-striped(tableHeader, tableContent)

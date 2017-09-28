@@ -6,7 +6,9 @@ var data = {
     twitter: "@azat_co",
     name: "Azat"
   },
-  tags: ['express', 'node', 'javascript']
+  tags: ['express', 'node', 'javascript'],
+  tableData:  [{name: "express", idade:2}, {name: "hapi"}, {name: "derby"}]
+    
 }
 data.body = process.argv[2];
 

@@ -9,9 +9,9 @@ const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const session = require('express-session');
 
-const home = require('./routes/home/index');
-const err404 = require('./routes/404/index');
+const home = require('./routes/home/index.js');
 const cadastro = require('./routes/cadastro/index');
+const err404 = require('./routes/404/index');
 
 const app = express();
 
