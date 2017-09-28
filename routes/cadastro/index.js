@@ -14,8 +14,6 @@ router.get('/', (req, res) => {
 						["3", "São Paulo", "Brasília DF","R$ 1,2", "R$ 10,0"]]});
   var nome=req.body.txtName;
   console.log("get"+nome);
-});
-
 
 router.post('/', (req, res) => {
   var nome=req.body.txtName;
