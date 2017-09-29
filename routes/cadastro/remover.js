@@ -43,11 +43,11 @@ router.post('/', (req, res) => {
   if (req.query.type == 'site'){
     var query = "DELETE FROM site WHERE id_site= " + req.body.txtId + ";"
     var r;
-
   }
 
   if (req.query.type == 'transportadora'){
-    
+    var query = "DELETE FROM transportadora WHERE id_site= " + req.body.txtId + ";"
+    var r;
   }
 
   execSQLQuery(query, r);
