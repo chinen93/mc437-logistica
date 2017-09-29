@@ -2,7 +2,7 @@ extends ../layouts/default.pug
 
 mixin create-form(formulario)
   form(action='/cadastro'+ formulario.action + '?type=' + formType, method='post')
-    input(type='hidden', id='formType', value=formulario.type)
+    input(type='hidden', name='formType', value=formType)
     each input,index in formulario.inputs
       if input.tipo == "radio"
         .radio-inline
