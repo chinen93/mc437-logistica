@@ -1,7 +1,7 @@
 extends ../layouts/default.pug
 
 mixin create-form(formulario)
-  form(action=formulario.action, method='post')
+  form(action='/cadastro'+ formulario.action + '?type=' + formType, method='post')
     input(type='hidden', id='formType', value=formulario.type)
     each input,index in formulario.inputs
       if input.tipo == "radio"

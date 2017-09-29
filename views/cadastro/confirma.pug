@@ -1,0 +1,7 @@
+extends ../layouts/default.pug
+block content
+        h4 Form submetido com sucesso
+        p Confira abaixo as informações processadas
+        
+        +panel-primary("Dados informados")
+          +table-condensed([], tableContent)

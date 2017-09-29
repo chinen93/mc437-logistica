@@ -11,6 +11,9 @@ const session = require('express-session');
 
 const home = require('./routes/home/index.js');
 const cadastro = require('./routes/cadastro/index.js');
+const adicionar = require('./routes/cadastro/adicionar.js');
+const alterar = require('./routes/cadastro/alterar.js');
+const remover = require('./routes/cadastro/remover.js');
 const list = require('./routes/list/index.js');
 const err404 = require('./routes/404/index');
 
@@ -56,6 +59,9 @@ app.use(cookieParser());
 
 app.use('/', home);
 app.use('/cadastro', cadastro);
+app.use('/cadastro/adicionar', adicionar);
+app.use('/cadastro/alterar', alterar);
+app.use('/cadastro/remover', remover);
 app.use('/list', list);
 app.use('/404', err404);
 
