@@ -222,12 +222,6 @@ router.get('/entrega', (req, res) => {
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
-  const clients = [
-      {id: 'Cliente X', nome: 'Cliente X'},
-      {id: 'Cliente Y', nome: 'Cliente Y'},
-      {id: 'Cliente C', nome: 'Cliente C'},
-      {id: 'Cliente Z', nome: 'Cliente Z'}
-  ];
 
   const sites = [
       {id: '1', nome: 'Site X'},
@@ -247,7 +241,7 @@ router.get('/entrega', (req, res) => {
     type: 'adicionar',
     submitTxt: 'Adicionar Entrega',
     inputs: [
-      { titulo: 'Cliente', identificador: 'slClientes', tipo: 'select', options: clients},
+      { titulo: 'Cliente', identificador: 'txtClientes'},
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
       { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
@@ -272,7 +266,7 @@ router.get('/entrega', (req, res) => {
     submitTxt: 'Alterar Entrega',
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
-      { titulo: 'Cliente', identificador: 'slClientes', tipo: 'select', options: clients},
+      { titulo: 'Cliente', identificador: 'txtClientes'},
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
       { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
