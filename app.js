@@ -90,4 +90,9 @@ app.use((err, req, res) => {
   res.redirect('/404');
 });
 
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
+
+
 module.exports = app;
