@@ -15,10 +15,11 @@ mixin create-form(formulario)
             +input-simple("text", "", {name: "" + input.identificador})
         else
           if input.tipo == "select"
-            select(name=input.identificador)
-              each selectOption in input.options
-                option(value=selectOption.id)
-                  = selectOption.nome  
+            div
+              select(name=input.identificador)
+                each selectOption in input.options
+                  option(value=selectOption.id)
+                    = selectOption.nome  
           else
             +input-simple("text", "", {name: "" + input.identificador})
         p
