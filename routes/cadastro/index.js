@@ -196,8 +196,8 @@ router.get('/entrega', (req, res) => {
       { titulo: 'Endereço Origem', identificador: 'txtEndOri' },
       { titulo: 'Endereço Destino', identificador: 'txtEndDest' },
       { titulo: 'Ultimo Endereço', identificador: 'txtUltEnd' },
-      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio' },
-      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio' }
+      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio', value: 'andamento'},
+      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio', value: 'entregue'}
     ]
   };
   const formRemover = {
@@ -217,8 +217,8 @@ router.get('/entrega', (req, res) => {
       { titulo: 'Endereço Origem', identificador: 'txtEndOri' },
       { titulo: 'Endereço Destino', identificador: 'txtEndDest' },
       { titulo: 'Ultimo Endereço', identificador: 'txtUltEnd' },
-      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio' },
-      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio' }
+      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio', value: 'andamento'},
+      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio', value: 'entregue'}
     ]
   };
   const formType = 'entrega';

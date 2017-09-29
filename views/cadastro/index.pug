@@ -5,7 +5,9 @@ mixin create-form(formulario)
     input(type='hidden', id='formType', value=formulario.type)
     each input,index in formulario.inputs
       if input.tipo == "radio"
-        +radio-inline(input.titulo, input.identificador)
+        .radio-inline
+           input(type='radio', name=input.identificador, value=input.value)
+           = input.titulo
       else
         label= input.titulo
         if input.tipo == "valor"
