@@ -9,12 +9,12 @@ router.get('/transportadora', (req, res) => {
   const cadastroTitle = 'Cadastro de Transportadoras';
   const tableLabel = 'Transportadora';
   const tableHeader = [
-    '#', 'Nome', 'Estado', 'Contato'
+    '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
   ];
   const tableContent = [
-    ['1', 'Transp X', 'São Paulo', '123'],
-    ['2', 'Transp Y', 'Rio de Janeiro', '456'],
-    ['3', 'Transp Z', 'Brasília DF', '789']
+    ['1', 'Transp X', '1234', 'R$ 1,23', 'R$ 1,23'],
+    ['2', 'Transp Y', '123', 'R$ 4,56', 'R$ 1,23'],
+    ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
   ];
   const formAdicionar = {
     action: '/adicionar',
@@ -22,8 +22,10 @@ router.get('/transportadora', (req, res) => {
     submitTxt: 'Adicionar Transportadora',
     inputs: [
       { titulo: 'Nome', identificador: 'txtNome' },
-      { titulo: 'Estado', identificador: 'txtEstado' },
-      { titulo: 'Contato', identificador: 'txtContato' }
+      { titulo: 'Contato', identificador: 'txtContato' },
+      { titulo: 'Taxa', identificador: 'txtTaxa' , tipo: 'valor'},
+      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm' , tipo: 'valor'}
+
     ]
   };
   const formRemover = {
@@ -41,8 +43,9 @@ router.get('/transportadora', (req, res) => {
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
       { titulo: 'Nome', identificador: 'txtNome' },
-      { titulo: 'Estado', identificador: 'txtEstado' },
-      { titulo: 'Contato', identificador: 'txtContato' }
+      { titulo: 'Contato', identificador: 'txtContato' },
+      { titulo: 'Taxa', identificador: 'txtTaxa' , tipo: 'valor'},
+      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm' , tipo: 'valor'}
     ]
   };
   const formType = 'transportadora';
@@ -61,32 +64,34 @@ router.get('/transportadora', (req, res) => {
   console.log('get' + nome);
 });
 
-router.get('/taxa', (req, res) => {
-  const cadastroTitle = 'Cadastro de Taxas da Transportadora X';
-  const tableLabel = 'Taxas';
+
+
+router.get('/entregador', (req, res) => {
+  const cadastroTitle = 'Cadastro de Entregador da Transportadora X';
+  const tableLabel = 'Entregadores';
   const tableHeader = [
-    '#', 'Estado Origem', 'Estado destino', 'Valor/Km', 'Valor/Kg'
+    '#', 'CPF', 'Nome', 'Placa Veículo', 'Modelo Veículo'
   ];
   const tableContent = [
-    ['1', 'São Paulo', 'São Paulo', 'R$ 0,5', 'R$ 5,0'],
-    ['2', 'São Paulo', 'Rio de Janeiro', 'R$ 0,9', 'R$ 8,0'],
-    ['3', 'São Paulo', 'Brasília DF', 'R$ 1,2', 'R$ 10,0']
+    ['1', '123456', 'Paulo', 'CCC1234', 'Carro 1'],
+    ['2', '123457', 'Janeiro', 'AAA5678', 'Carro 3'],
+    ['3', '333414', 'Brasílio', 'PLA1234', 'Carro 4']
   ];
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
-    submitTxt: 'Adicionar Taxa',
+    submitTxt: 'Adicionar Entregador',
     inputs: [
-      { titulo: 'Estado Origem', identificador: 'txtEstOri' },
-      { titulo: 'Estado Destino', identificador: 'txtEstDest' },
-      { titulo: 'Valor/Km', identificador: 'txtValorKm', tipo: 'valor' },
-      { titulo: 'Valor/Kg', identificador: 'txtValorKg', tipo: 'valor' }
+      { titulo: 'CPF', identificador: 'txtCPF' },
+      { titulo: 'Nome', identificador: 'txtNome' },
+      { titulo: 'Placa Veículo', identificador: 'txtPlacaVeiculo' },
+      { titulo: 'Modelo Veículo', identificador: 'txtModeloVeiculo' }
     ]
   };
   const formRemover = {
     action: '/remover',
     type: 'remover',
-    submitTxt: 'Remover Taxa',
+    submitTxt: 'Remover Entregador',
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' }
     ]
@@ -94,16 +99,16 @@ router.get('/taxa', (req, res) => {
   const formAlterar = {
     action: '/alterar',
     type: 'alterar',
-    submitTxt: 'Alterar Taxa',
+    submitTxt: 'Alterar Entregador',
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
-      { titulo: 'Estado Origem', identificador: 'txtEstOri' },
-      { titulo: 'Estado Destino', identificador: 'txtEstDest' },
-      { titulo: 'Valor/Km', identificador: 'txtValorKm', tipo: 'valor' },
-      { titulo: 'Valor/Kg', identificador: 'txtValorKg', tipo: 'valor' }
+      { titulo: 'CPF', identificador: 'txtCPF' },
+      { titulo: 'Nome', identificador: 'txtNome' },
+      { titulo: 'Placa Veículo', identificador: 'txtPlacaVeiculo' },
+      { titulo: 'Modelo Veículo', identificador: 'txtModeloVeiculo' }
     ]
   };
-  const formType = 'taxa';
+  const formType = 'entregador';
 
   res.render('cadastro/index', {
     cadastroTitle,
@@ -124,12 +129,12 @@ router.get('/site', (req, res) => {
   const cadastroTitle = 'Cadastro de Site';
   const tableLabel = 'Sites';
   const tableHeader = [
-    '#', 'Nome', 'Estado', 'Contato'
+    '#', 'Nome', 'Contato', 'Endereço Web'
   ];
   const tableContent = [
-    ['1', 'Site X', 'São Paulo', '098'],
-    ['2', 'Site Y', 'Rio de Janeiro', '1234'],
-    ['3', 'Site Z', 'Brasília DF', '111234']
+    ['1', 'Site X', '098', 'http://'],
+    ['2', 'Site Y', '1234', 'http://'],
+    ['3', 'Site Z', '111234', 'http://']
   ];
   const formAdicionar = {
     action: '/adicionar',
@@ -137,8 +142,8 @@ router.get('/site', (req, res) => {
     submitTxt: 'Adicionar Site',
     inputs: [
       { titulo: 'Nome', identificador: 'txtNome' },
-      { titulo: 'Estado', identificador: 'txtEstado' },
-      { titulo: 'Contato', identificador: 'txtContato' }
+      { titulo: 'Contato', identificador: 'txtContato' },
+      { titulo: 'Endereço Web', identificador: 'txtEndereçoWeb' }
     ]
   };
   const formRemover = {
@@ -156,8 +161,8 @@ router.get('/site', (req, res) => {
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
       { titulo: 'Nome', identificador: 'txtNome' },
-      { titulo: 'Estado', identificador: 'txtEstado' },
-      { titulo: 'Contato', identificador: 'txtContato' }
+      { titulo: 'Contato', identificador: 'txtContato' },
+      { titulo: 'Endereço Web', identificador: 'txtEndereçoWeb' }
     ]
   };
   const formType = 'site';
@@ -181,23 +186,55 @@ router.get('/entrega', (req, res) => {
   const cadastroTitle = 'Cadastro de Entrega';
   const tableLabel = 'Entregas';
   const tableHeader = [
-    '#', 'Status', 'Endereço Origem', 'Endereço Destino', 'Ultimo Endereço'
+    '#', 'Cliente', 'Contato Cliente', 
+    'Endereço Cliente', 'Site', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
   const tableContent = [
-    ['1', 'Em Andamento', 'Rua X', 'São Paulo', 'Rua QWE'],
-    ['2', 'Entregue', 'Rua Y', 'Rio de Janeiro', 'Av RTY'],
-    ['3', 'Em Andamento', 'Rua Z', 'Brasília DF', 'Rua Oi']
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
+  const clients = [
+      {id: '1', nome: 'Cliente X'},
+      {id: '2', nome: 'Cliente Y'},
+      {id: '3', nome: 'Cliente C'},
+      {id: '4', nome: 'Cliente Z'}
+  ];
+
+  const sites = [
+      {id: '1', nome: 'Site X'},
+      {id: '2', nome: 'Site Y'},
+      {id: '3', nome: 'Site C'},
+      {id: '4', nome: 'Site Z'}
+  ];
+
+  const entregadores = [
+      {id: '123456', nome: 'Entregador X'},
+      {id: '123457', nome: 'Entregador Y'},
+      {id: '333414', nome: 'Entregador C'},
+  ];
+
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
     submitTxt: 'Adicionar Entrega',
     inputs: [
-      { titulo: 'Endereço Origem', identificador: 'txtEndOri' },
-      { titulo: 'Endereço Destino', identificador: 'txtEndDest' },
-      { titulo: 'Ultimo Endereço', identificador: 'txtUltEnd' },
-      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio', value: 'andamento'},
-      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio', value: 'entregue'}
+      { titulo: 'Cliente', identificador: 'slClientes', tipo: 'select', options: clients},
+      { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
+      { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
+      { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
+      { titulo: 'Entregador', identificador: 'slEntregador', tipo: 'select', options: entregadores},
+      { titulo: 'Data Envio', identificador: 'txtDataEnv' },
+      { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
+      { titulo: 'Localização', identificador: 'txtLocal' },
+      { titulo: 'Pontos Parada', identificador: 'txtPontosParada'}
     ]
   };
   const formRemover = {
@@ -214,11 +251,14 @@ router.get('/entrega', (req, res) => {
     submitTxt: 'Alterar Entrega',
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
-      { titulo: 'Endereço Origem', identificador: 'txtEndOri' },
-      { titulo: 'Endereço Destino', identificador: 'txtEndDest' },
-      { titulo: 'Ultimo Endereço', identificador: 'txtUltEnd' },
-      { titulo: 'Em Andamento', identificador: 'rdbStatus', tipo: 'radio', value: 'andamento'},
-      { titulo: 'Entregue', identificador: 'rdbStatus', tipo: 'radio', value: 'entregue'}
+      { titulo: 'Cliente', identificador: 'slClientes', tipo: 'select', options: clients},
+      { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
+      { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
+      { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
+      { titulo: 'Data Envio', identificador: 'txtDataEnv' },
+      { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
+      { titulo: 'Localização', identificador: 'txtLocal' },
+      { titulo: 'Pontos Parada', identificador: 'txtPontosParada'}
     ]
   };
   const formType = 'entrega';

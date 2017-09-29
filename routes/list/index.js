@@ -30,22 +30,23 @@ router.get('/transportadoras', (req, res) => {
   var listCadastroTitle = "Cadastro de Transportadora";
   var urlCadastroTitle = "/cadastro/transportadora"
 
-  var listCadastroSubtitle = "Cadastro de Taxas da Transportadora";
+  var listCadastroSubtitle = "Cadastro de Entregadores da Transportadora";
 
-  var tableHeader = [
-      "#", "Nome", "Contato"
+  const tableHeader = [
+    '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
   ];
-
-  var tableContent = [
-      {id: "1", nome: "Transportadora", contato: "Contato"}
+  const tableContent = [
+    ['1', 'Transp X', '1234', 'R$ 1,23', 'R$ 1,23'],
+    ['2', 'Transp Y', '123', 'R$ 4,56', 'R$ 1,23'],
+    ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
   ];
 
   var tableLabel = "Lista Transportadoras";
   var dropdownTitle = "Transportadoras";
   var dropdownList = [
-      {text:"Transportadora X", url:"/cadastro/taxa?id=1"},
-      {text:"Transportadora Y", url:"/cadastro/taxa?id=2"},
-      {text:"Transportadora Z", url:"/cadastro/taxa?id=3"}
+      {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
+      {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
+      {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
   ];
 
 
@@ -74,8 +75,8 @@ router.get('/sites', (req, res) => {
 
   var tableLabel = "Lista Site";
 
-  var tableHeader = [
-      "#", "Nome", "Contato"
+  const tableHeader = [
+    '#', 'Nome', 'Contato', 'Endereço Web'
   ];
 
   var query = "SELECT * from site;";
@@ -123,14 +124,21 @@ router.get('/entregas', (req, res) => {
 
   var tableLabel = "Lista Entrega";
 
-  var tableHeader = [
-	"#", "Status", "Endereço Origem", "Endereço Destino", "Ultimo Endereço"
+  const tableHeader = [
+    '#', 'Cliente', 'Contato Cliente', 
+    'Endereço Cliente', 'Site', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
-
-  var tableContent = [
-	["1", "Em Andamento", "Rua X", "São Paulo", "Rua QWE"],
-	["2", "Entregue", "Rua Y", "Rio de Janeiro", "Av RTY"],
-	["3", "Em Andamento", "Rua Z", "Brasília DF", "Rua Oi"]
+  const tableContent = [
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+    ['1', 'Cliente X', 'Contato Cliente X', 
+    'Endereço Cliente X', 'Site X', 'Data Envio',
+    'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
 
   var listCadastroSubtitle = undefined;

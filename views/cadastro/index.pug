@@ -14,7 +14,13 @@ mixin create-form(formulario)
           +input-group("R$")
             +input-simple("text", "", {name: "" + input.identificador})
         else
-          +input-simple("text", "", {name: "" + input.identificador})
+          if input.tipo == "select"
+            select(name=input.identificador)
+              each selectOption in input.options
+                option(value=selectOption.id)
+                  = selectOption.nome  
+          else
+            +input-simple("text", "", {name: "" + input.identificador})
         p
     p
     +submit("" + formulario.submitTxt)
