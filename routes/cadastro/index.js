@@ -204,10 +204,11 @@ router.get('/entrega', (req, res) => {
 	type: "adicionar",
 	submitTxt: "Adicionar Entrega",
 	inputs:[
-	    {titulo: "Status", identificador: "txtStatus"},
 	    {titulo: "Endereço Origem", identificador: "txtEndOri"},
 	    {titulo: "Endereço Destino", identificador: "txtEndDest"},
-	    {titulo: "Ultimo Endereço", identificador: "txtUltEnd"}
+	    {titulo: "Ultimo Endereço", identificador: "txtUltEnd"},
+	    {titulo: "Em Andamento", identificador: "rdbStatus", tipo: "radio"},
+	    {titulo: "Entregue", identificador: "rdbStatus", tipo: "radio"}
 	]};
 
     var formRemover = {
@@ -224,10 +225,11 @@ router.get('/entrega', (req, res) => {
 	submitTxt: "Alterar Entrega",
 	inputs: [
 	    {titulo: "Identificador", identificador: "txtId"},
-	    {titulo: "Status", identificador: "txtStatus"},
 	    {titulo: "Endereço Origem", identificador: "txtEndOri"},
 	    {titulo: "Endereço Destino", identificador: "txtEndDest"},
-	    {titulo: "Ultimo Endereço", identificador: "txtUltEnd"}
+	    {titulo: "Ultimo Endereço", identificador: "txtUltEnd"},
+	    {titulo: "Em Andamento", identificador: "rdbStatus", tipo: "radio"},
+	    {titulo: "Entregue", identificador: "rdbStatus", tipo: "radio"}
 	]};
 
     res.render('cadastro/index', {

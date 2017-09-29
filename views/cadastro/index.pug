@@ -4,13 +4,17 @@ mixin create-form(formulario)
   form(action=formulario.action, method='post')
     input(type='hidden', id='formType', value=formulario.type)
     each input,index in formulario.inputs
-      label= input.titulo
-      if input.tipo != "valor"
-        +input-simple("text", "" + input.identificador)
+      if input.tipo == "radio"
+        +radio-inline(input.titulo, input.identificador)
       else
-        +input-group("R$")
-          +input-simple("text","" + input.identificador)
-      p
+        label= input.titulo
+        if input.tipo == "valor"
+          +input-group("R$")
+            +input-simple("text", "", {name: "" + input.identificador})
+        else
+          +input-simple("text", "", {name: "" + input.identificador})
+        p
+    p
     +submit("" + formulario.submitTxt)
 
 block content

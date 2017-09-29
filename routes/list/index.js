@@ -44,7 +44,7 @@ router.get('/transportadoras', (req, res) => {
       tableContent: tableContent
   });
   var nome=req.body.txtName;
-  console.log("get"+nome);q
+  console.log("get"+nome);
 });
 
 router.get('/sites', (req, res) => {
@@ -80,7 +80,7 @@ router.get('/sites', (req, res) => {
       tableContent: tableContent
   });
   var nome=req.body.txtName;
-  console.log("get"+nome);q
+  console.log("get"+nome);
 });
 
 
@@ -119,7 +119,7 @@ router.get('/entregas', (req, res) => {
       tableContent: tableContent
   });
   var nome=req.body.txtName;
-  console.log("get"+nome);q
+  console.log("get"+nome);
 });
 
 
