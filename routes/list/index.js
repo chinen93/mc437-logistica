@@ -57,17 +57,30 @@ router.get('/transportadoras', (req, res) => {
 
 
 
-  res.render('list/index', {
-      listTitle: listTitle,
-      listCadastroTitle: listCadastroTitle,
-      listCadastroSubtitle: listCadastroSubtitle,
-      urlCadastroTitle: urlCadastroTitle,
-      dropdownTitle: dropdownTitle,
-      dropdownList: dropdownList,
-      tableLabel: tableLabel,
-      tableHeader: tableHeader,
-      tableContent: tableContent
+  execSQLQuery("SELECT * from site;", function(e, r){
+    var tableContent = [];
+
+    console.log(r);
+    for (var i = 0; i < r.length; i++)
+      tableContent.push([ r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site])
+
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
+
+      res.render('list/index', {
+          listTitle: listTitle,
+          listCadastroTitle: listCadastroTitle,
+          listCadastroSubtitle: listCadastroSubtitle,
+          urlCadastroTitle: urlCadastroTitle,
+          dropdownTitle: dropdownTitle,
+          dropdownList: dropdownList,
+          tableLabel: tableLabel,
+          tableHeader: tableHeader,
+          tableContent: tableContent
+      });
   });
+
   var nome=req.body.txtName;
   console.log("get"+nome);
 });

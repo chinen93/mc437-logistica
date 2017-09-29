@@ -42,8 +42,10 @@ router.post('/', (req, res) => {
   }
 
   if (req.query.type == "entrega"){
-    // var query = "INSERT INTO envio(cliente, contato_cliente, endereco_cliente, id_site, CPFentregador, data_envio, prazo_previsto, localizacao, pontos_de_parada) VALUES ('" + req.body.txt  +"', "988571132", "Rua neusa francisca dos santos 197 parque sevilha sumare sp", 1, 355, '2017-09-28', '2017-10-01', "fornecedor", "rua 1, rua 2, av brasil");"
+    var query = "INSERT INTO envio(cliente, contato_cliente, endereco_cliente, id_site, CPFentregador, data_envio, prazo_previsto, localizacao, pontos_de_parada) VALUES ('" + req.body.txtCliente  +"', '" + req.body.txtContatoCliente + "', '" + req.body.txtEndCliente + "', '" + req.body.slSite + "',' " + req.body.txtCpfEntregador + "', '" + req.body.txtDataEnv + "', '"
+    + req.body.txtDataPrevista + "', '" + req.body.txtLocal + "', '" + req.body.txtPontosParada + "');"
 
+    execSQLQuery(query, function(e, r){});
   }
 
   res.render('cadastro/confirma', {

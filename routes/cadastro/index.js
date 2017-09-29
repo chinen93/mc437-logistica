@@ -207,18 +207,18 @@ router.get('/entrega', (req, res) => {
   const cadastroTitle = 'Cadastro de Entrega';
   const tableLabel = 'Entregas';
   const tableHeader = [
-    '#', 'Cliente', 'Contato Cliente', 
+    '#', 'Cliente', 'Contato Cliente',
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
   const tableContent = [
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
@@ -229,13 +229,7 @@ router.get('/entrega', (req, res) => {
       {id: '3', nome: 'Site C'},
       {id: '4', nome: 'Site Z'}
   ];
-
-  const entregadores = [
-      {id: '123456', nome: 'Entregador X'},
-      {id: '123457', nome: 'Entregador Y'},
-      {id: '333414', nome: 'Entregador C'},
-  ];
-
+  
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
@@ -245,7 +239,7 @@ router.get('/entrega', (req, res) => {
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
       { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
-      { titulo: 'Entregador', identificador: 'slEntregador', tipo: 'select', options: entregadores},
+      { titulo: 'Entregador', identificador: 'txtCpfEntregador'},
       { titulo: 'Data Envio', identificador: 'txtDataEnv' },
       { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
       { titulo: 'Localização', identificador: 'txtLocal' },
