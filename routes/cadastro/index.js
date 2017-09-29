@@ -5,6 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 /* GET cadastro page. */
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Transportadora
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
 router.get('/transportadora', (req, res) => {
   const cadastroTitle = 'Cadastro de Transportadoras';
   const tableLabel = 'Transportadora';
@@ -64,7 +71,11 @@ router.get('/transportadora', (req, res) => {
   console.log('get' + nome);
 });
 
-
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Entregador
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 router.get('/entregador', (req, res) => {
   const cadastroTitle = 'Cadastro de Entregador da Transportadora X';
@@ -124,6 +135,11 @@ router.get('/entregador', (req, res) => {
   console.log('get' + nome);
 });
 
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Site
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 router.get('/site', (req, res) => {
   const cadastroTitle = 'Cadastro de Site';
@@ -181,6 +197,11 @@ router.get('/site', (req, res) => {
   console.log('get' + nome);
 });
 
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Entrega
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 router.get('/entrega', (req, res) => {
   const cadastroTitle = 'Cadastro de Entrega';
@@ -202,10 +223,10 @@ router.get('/entrega', (req, res) => {
     'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
   const clients = [
-      {id: '1', nome: 'Cliente X'},
-      {id: '2', nome: 'Cliente Y'},
-      {id: '3', nome: 'Cliente C'},
-      {id: '4', nome: 'Cliente Z'}
+      {id: 'Cliente X', nome: 'Cliente X'},
+      {id: 'Cliente Y', nome: 'Cliente Y'},
+      {id: 'Cliente C', nome: 'Cliente C'},
+      {id: 'Cliente Z', nome: 'Cliente Z'}
   ];
 
   const sites = [
