@@ -7,7 +7,7 @@ const router = express.Router();
 const mysql = require('mysql');
 
 
-function execSQLQuery(sqlQry, res){
+function execSQLQuery(sqlQry, resCallback){
   const connection = mysql.createConnection({
     host     : 'localhost',
     port     : 3306,
@@ -17,7 +17,7 @@ function execSQLQuery(sqlQry, res){
   });
 
   return connection.query(sqlQry, function(error, results, fields){
-      return results;
+      resCallback(error, results);
   });
 }
 
@@ -79,39 +79,30 @@ router.get('/sites', (req, res) => {
     '#', 'Nome', 'Contato', 'Endereço Web'
   ];
 
-  var query = "SELECT * from site;";
+  execSQLQuery("SELECT * from site;", function(e, r){
+    var tableContent = [];
 
-  var SQLResponse = function(){
-    this.rows = [];
-  }
+    console.log(r);
+    for (var i = 0; i < r.length; i++)
+      tableContent.push([ r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site])
 
-  var sqlResponse = new SQLResponse();
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
 
-  execSQLQuery(query, sqlResponse)
-
-  console.log(sqlResponse.rows);
-
-  var tableContent = [
-      // {id: r.rows.id_site, nome: r.rows.nome, contato: r.rows.contato_responsavel_site}
-  ];
-
-  var listCadastroSubtitle = undefined;
-  var dropdownList = undefined;
-  var dropdownTitle = undefined;
-
-  res.render('list/index', {
-      listTitle: listTitle,
-      listCadastroTitle: listCadastroTitle,
-      listCadastroSubtitle: listCadastroSubtitle,
-      urlCadastroTitle: urlCadastroTitle,
-      dropdownTitle: dropdownTitle,
-      dropdownList: dropdownList,
-      tableLabel: tableLabel,
-      tableHeader: tableHeader,
-      tableContent: tableContent
+      res.render('list/index', {
+          listTitle: listTitle,
+          listCadastroTitle: listCadastroTitle,
+          listCadastroSubtitle: listCadastroSubtitle,
+          urlCadastroTitle: urlCadastroTitle,
+          dropdownTitle: dropdownTitle,
+          dropdownList: dropdownList,
+          tableLabel: tableLabel,
+          tableHeader: tableHeader,
+          tableContent: tableContent
+      });
   });
-  var nome=req.body.txtName;
-  console.log("get"+nome);
+
 });
 
 
@@ -125,18 +116,18 @@ router.get('/entregas', (req, res) => {
   var tableLabel = "Lista Entrega";
 
   const tableHeader = [
-    '#', 'Cliente', 'Contato Cliente', 
+    '#', 'Cliente', 'Contato Cliente',
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
   const tableContent = [
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
