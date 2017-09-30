@@ -1,17 +1,15 @@
-const mysql = require("mysql");
+const mysql = require('mysql');
+const credentials = require('./mariaDBCredentials.json');
 
-exports.execSQLQuery = function(sqlQry, resCallback){
-  var credentials = require('./mariaDBCredentials.json');
-
+exports.execSQLQuery = function (sqlQry, resCallback) {
   const connection = mysql.createConnection(credentials);
 
-  connection.query(sqlQry, function(error, results, fields){
-      resCallback(error, results);
+  connection.query(sqlQry, (error, results) => {
+    resCallback(error, results);
 
-      connection.end();
+    connection.end();
 
-      console.log(error);
-      console.log(results);
-
+    console.log(error);
+    console.log(results);
   });
-}
+};
