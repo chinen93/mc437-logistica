@@ -15,13 +15,12 @@ const router = express.Router();
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 router.get('/transportadoras', (req, res) => {
+  const listTitle = 'Ações Transportadora';
 
-  var listTitle = "Ações Transportadora";
+  const listCadastroTitle = 'Cadastro de Transportadora';
+  const urlCadastroTitle = '/cadastro/transportadora';
 
-  var listCadastroTitle = "Cadastro de Transportadora";
-  var urlCadastroTitle = "/cadastro/transportadora"
-
-  var listCadastroSubtitle = "Cadastro de Entregadores da Transportadora";
+  const listCadastroSubtitle = 'Cadastro de Entregadores da Transportadora';
 
   const tableHeader = [
     '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
@@ -32,40 +31,39 @@ router.get('/transportadoras', (req, res) => {
   //   ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
   // ];
 
-  var tableLabel = "Lista Transportadoras";
-  var dropdownTitle = "Transportadoras";
-  var dropdownList = [
-      {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
-      {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
-      {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
+  const tableLabel = 'Lista Transportadoras';
+  const dropdownTitle = 'Transportadoras';
+  const dropdownList = [
+    { text: 'Transportadora X', url: '/cadastro/entregador?id=1' },
+    { text: 'Transportadora Y', url: '/cadastro/entregador?id=2' },
+    { text: 'Transportadora Z', url: '/cadastro/entregador?id=3' }
   ];
 
-  Transportadora.all(function(r){
-    var tableContent = [];
+  Transportadora.all((r) => {
+    const tableContent = [];
 
     console.log(r);
-    for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id, r[i].contato, r[i].nome, r[i].precoCm, r[i].taxa])
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
+    for (let i = 0; i < r.length; i += 1) {
+      tableContent.push([r[i].id, r[i].contato, r[i].nome, r[i].precoCm, r[i].taxa]);
+    }
 
-      res.render('list/index', {
-          listTitle: listTitle,
-          listCadastroTitle: listCadastroTitle,
-          listCadastroSubtitle: listCadastroSubtitle,
-          urlCadastroTitle: urlCadastroTitle,
-          dropdownTitle: dropdownTitle,
-          dropdownList: dropdownList,
-          tableLabel: tableLabel,
-          tableHeader: tableHeader,
-          tableContent: tableContent
-      });
+
+    res.render('list/index', {
+      listTitle,
+      listCadastroTitle,
+      listCadastroSubtitle,
+      urlCadastroTitle,
+      dropdownTitle,
+      dropdownList,
+      tableLabel,
+      tableHeader,
+      tableContent
+    });
   });
 
-  var nome=req.body.txtName;
-  console.log("get"+nome);
+  const nome = req.body.txtName;
+  console.log('get' + nome);
 });
 
 // ----------------------------------------------------------------------------
@@ -75,41 +73,33 @@ router.get('/transportadoras', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/sites', (req, res) => {
+  const listTitle = 'Ações Site';
 
-  var listTitle = "Ações Site";
+  const listCadastroTitle = 'Cadastro de Site';
+  const urlCadastroTitle = '/cadastro/site';
 
-  var listCadastroTitle = "Cadastro de Site";
-  var urlCadastroTitle = "/cadastro/site"
-
-  var tableLabel = "Lista Site";
+  const tableLabel = 'Lista Site';
 
   const tableHeader = [
     '#', 'Nome', 'Contato', 'Endereço Web'
   ];
 
-  Site.all(function(s){
-    var tableContent = [];
+  Site.all((s) => {
+    const tableContent = [];
 
-    for (var i = 0; i < s.length; i++)
-      tableContent.push([ s[i].id, s[i].nome, s[i].contato, s[i].endereco])
+    for (let i = 0; i < s.length; i += 1) {
+      tableContent.push([s[i].id, s[i].nome, s[i].contato, s[i].endereco]);
+    }
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
-
-      res.render('list/index', {
-          listTitle: listTitle,
-          listCadastroTitle: listCadastroTitle,
-          listCadastroSubtitle: listCadastroSubtitle,
-          urlCadastroTitle: urlCadastroTitle,
-          dropdownTitle: dropdownTitle,
-          dropdownList: dropdownList,
-          tableLabel: tableLabel,
-          tableHeader: tableHeader,
-          tableContent: tableContent
-      });
+    res.render('list/index', {
+      listTitle,
+      listCadastroTitle,
+      urlCadastroTitle,
+      tableLabel,
+      tableHeader,
+      tableContent
+    });
   });
-
 });
 
 // ----------------------------------------------------------------------------
@@ -119,13 +109,12 @@ router.get('/sites', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/entregas', (req, res) => {
+  const listTitle = 'Ações Entrega';
 
-  var listTitle = "Ações Entrega";
+  const listCadastroTitle = 'Cadastro de Entrega';
+  const urlCadastroTitle = '/cadastro/entrega';
 
-  var listCadastroTitle = "Cadastro de Entrega";
-  var urlCadastroTitle = "/cadastro/entrega"
-
-  var tableLabel = "Lista Entrega";
+  const tableLabel = 'Lista Entrega';
 
   const tableHeader = [
     '#', 'Cliente', 'Contato Cliente',
@@ -134,33 +123,26 @@ router.get('/entregas', (req, res) => {
   ];
   const tableContent = [
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada']
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
 
-  var listCadastroSubtitle = undefined;
-  var dropdownTitle = undefined;
-  var dropdownList = undefined;
-
   res.render('list/index', {
-      listTitle: listTitle,
-      listCadastroTitle: listCadastroTitle,
-      listCadastroSubtitle: listCadastroSubtitle,
-      urlCadastroTitle: urlCadastroTitle,
-      dropdownTitle: dropdownTitle,
-      dropdownList: dropdownList,
-      tableLabel: tableLabel,
-      tableHeader: tableHeader,
-      tableContent: tableContent
+    listTitle,
+    listCadastroTitle,
+    urlCadastroTitle,
+    tableLabel,
+    tableHeader,
+    tableContent
   });
-  var nome=req.body.txtName;
-  console.log("get"+nome);
+  const nome = req.body.txtName;
+  console.log('get' + nome);
 });
 
 
