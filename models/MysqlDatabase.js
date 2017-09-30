@@ -1,13 +1,9 @@
 const mysql = require("mysql");
 
 exports.execSQLQuery = function(sqlQry, resCallback){
-  const connection = mysql.createConnection({
-    host     : 'localhost',
-    port     : 3306,
-    user     : 'root',
-    password : 'mamute1802!',
-    database : 'Logistica'
-  });
+  var credentials = require('./mariaDBCredentials.json');
+
+  const connection = mysql.createConnection(credentials);
 
   connection.query(sqlQry, function(error, results, fields){
       resCallback(error, results);
