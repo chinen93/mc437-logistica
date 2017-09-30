@@ -30,18 +30,12 @@ exports.delete = function (id) {
 
 exports.specific = function (id) {
   database.execSQLQuery('SELECT * from site where id_site=' + id + ';', (e, r) => {
-    const allSites = [];
-
-    for (let i = 0; i < r.length; i += 1) {
-      allSites.push(new Site(r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site));
-    }
-
-    callbackFunction(allSites);
+    callbackFunction( new Site(r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site) )
   });
 };
 
-exports.alter = function (id, name, contato, endereco) {
-  const query = "UPDATE site SET contato_responsavel_site='" + contato + "', 'nome='" + nome + "', '" + endereco + "' WHERE id_site=" + id + ';';
+exports.update = function (id, name, contato, endereco) {
+  const query = "UPDATE site SET contato_responsavel_site='" + contato + "', ' nome='" + nome + "', endereco_site='" + endereco + "' WHERE id_site=" + id + ';';
 };
 
 exports.findByAttribute = function (atts) {

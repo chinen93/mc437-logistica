@@ -31,12 +31,10 @@ exports.delete = function (id) {
 
 exports.specific = function (id) {
   database.execSQLQuery('SELECT * from transportadora where id_transportadora=' + id + ';', (e, r) => {
-    const all = [];
-
-    for (let i = 0; i < r.length; i += 1) {
-      all.push(new Site(r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site));
-    }
-
-    callbackFunction(all);
+    callbackFunction(new Transportadora(r[i].id_transportadora, r[i].nome_transportadora, r[i].contato_responsavel_transportadora, r[i].preco_embalagem_cm_quadrado, r[i].taxa_entrega));
   });
+};
+
+exports.update = function (id, name, contato, precoCm, taxa) {
+  const query = "UPDATE transportadora SET contato_responsavel_transportadora='" + contato + "', ' nome_transportadora='" + nome + "', preco_embalagem_cm_quadrado='" + precoCm + "', taxa_entrega='" + taxa + "' WHERE id_site=" + id + ';';
 };
