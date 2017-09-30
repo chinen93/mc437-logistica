@@ -4,23 +4,22 @@ const express = require('express');
 
 const router = express.Router();
 
-function execSQLQuery(sqlQry, resCallback){
+function execSQLQuery(sqlQry, resCallback) {
   const connection = mysql.createConnection({
-    host     : 'localhost',
-    port     : 3306,
-    user     : 'root',
-    password : 'mamute1802!',
-    database : 'Logistica'
+    host: process.env.RDS_HOSTNAME || 'localhost',
+    port: process.env.RDS_PORT || 3306,
+    user: process.env.RDS_USERNAME || 'root',
+    password: process.env.RDS_PASSWORD || '',
+    database: process.env.RDS_DB_NAME || 'logistica'
   });
 
-  connection.query(sqlQry, function(error, results, fields){
-      resCallback(error, results);
+  connection.query(sqlQry, (error, results) => {
+    resCallback(error, results);
 
-      connection.end();
+    connection.end();
 
-      console.log(error);
-      console.log(results);
-
+    console.log(error);
+    console.log(results);
   });
 }
 
@@ -43,8 +42,8 @@ router.get('/transportadora', (req, res) => {
     inputs: [
       { titulo: 'Nome', identificador: 'txtNome' },
       { titulo: 'Contato', identificador: 'txtContato' },
-      { titulo: 'Taxa', identificador: 'txtTaxa' , tipo: 'valor'},
-      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm' , tipo: 'valor'}
+      { titulo: 'Taxa', identificador: 'txtTaxa', tipo: 'valor' },
+      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm', tipo: 'valor' }
 
     ]
   };
@@ -64,8 +63,8 @@ router.get('/transportadora', (req, res) => {
       { titulo: 'Identificador', identificador: 'txtId' },
       { titulo: 'Nome', identificador: 'txtNome' },
       { titulo: 'Contato', identificador: 'txtContato' },
-      { titulo: 'Taxa', identificador: 'txtTaxa' , tipo: 'valor'},
-      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm' , tipo: 'valor'}
+      { titulo: 'Taxa', identificador: 'txtTaxa', tipo: 'valor' },
+      { titulo: 'Preço/cm³', identificador: 'txtPrecoCm', tipo: 'valor' }
     ]
   };
   const formType = 'transportadora';
@@ -260,21 +259,21 @@ router.get('/entrega', (req, res) => {
   ];
   const tableContent = [
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada'],
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
     ['1', 'Cliente X', 'Contato Cliente X',
-    'Endereço Cliente X', 'Site X', 'Data Envio',
-    'Prazo Previsto', 'Localização', 'Pontos De Parada']
+      'Endereço Cliente X', 'Site X', 'Data Envio',
+      'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
 
   const sites = [
-      {id: '1', nome: 'Site X'},
-      {id: '2', nome: 'Site Y'},
-      {id: '3', nome: 'Site C'},
-      {id: '4', nome: 'Site Z'}
+    { id: '1', nome: 'Site X' },
+    { id: '2', nome: 'Site Y' },
+    { id: '3', nome: 'Site C' },
+    { id: '4', nome: 'Site Z' }
   ];
 
   const formAdicionar = {
@@ -282,15 +281,17 @@ router.get('/entrega', (req, res) => {
     type: 'adicionar',
     submitTxt: 'Adicionar Entrega',
     inputs: [
-      { titulo: 'Cliente', identificador: 'txtClientes'},
+      { titulo: 'Cliente', identificador: 'txtClientes' },
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
-      { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
-      { titulo: 'Entregador', identificador: 'txtCpfEntregador'},
+      {
+        titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites
+      },
+      { titulo: 'Entregador', identificador: 'txtCpfEntregador' },
       { titulo: 'Data Envio', identificador: 'txtDataEnv' },
       { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
       { titulo: 'Localização', identificador: 'txtLocal' },
-      { titulo: 'Pontos Parada', identificador: 'txtPontosParada'}
+      { titulo: 'Pontos Parada', identificador: 'txtPontosParada' }
     ]
   };
   const formRemover = {
@@ -307,14 +308,16 @@ router.get('/entrega', (req, res) => {
     submitTxt: 'Alterar Entrega',
     inputs: [
       { titulo: 'Identificador', identificador: 'txtId' },
-      { titulo: 'Cliente', identificador: 'txtClientes'},
+      { titulo: 'Cliente', identificador: 'txtClientes' },
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
-      { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
+      {
+        titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites
+      },
       { titulo: 'Data Envio', identificador: 'txtDataEnv' },
       { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
       { titulo: 'Localização', identificador: 'txtLocal' },
-      { titulo: 'Pontos Parada', identificador: 'txtPontosParada'}
+      { titulo: 'Pontos Parada', identificador: 'txtPontosParada' }
     ]
   };
   const formType = 'entrega';
