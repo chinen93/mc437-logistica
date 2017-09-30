@@ -4,53 +4,20 @@ const express = require('express');
 
 const router = express.Router();
 
-const mysql = require('mysql');
+const Site = require('./../../models/site');
+const Transportadora = require('./../../models/transportadora');
 
-
-function execSQLQuery(sqlQry, res){
-  const connection = mysql.createConnection({
-    host     : 'localhost',
-    port     : 3306,
-    user     : 'root',
-    password : 'mamute1802!',
-    database : 'Logistica'
-  });
-
-  connection.query(sqlQry, function(error, results, fields){
-      // if(error)
-      //   res.json(error);
-      // else
-      //   res.json(results);
-      if (error)
-        res = error;
-      else
-        res = results;
-
-      connection.end();
-
-      console.log(error);
-      console.log(results);
-
-  });
-}
 
 router.post('/', (req, res) => {
   const tableContent = Object.keys(req.body).map(key => [req.body[key]]);
 
-  var query;
-  var r;
+  var type = req.body.type;
 
-  if (req.query.type == 'site'){
-    var query = "DELETE FROM site WHERE id_site= " + req.body.txtId + ";"
-    var r;
-  }
+  if (type === 'site')
+    Site.delete(req.body.txtId);
 
-  if (req.query.type == 'transportadora'){
-    var query = "DELETE FROM transportadora WHERE id_site= " + req.body.txtId + ";"
-    var r;
-  }
-
-  execSQLQuery(query, r);
+  if (type === 'transportadora')
+    Transportadora.delete(req.body.txtId);
 
   res.render('cadastro/confirma', {
     tableContent

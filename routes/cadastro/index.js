@@ -4,6 +4,26 @@ const express = require('express');
 
 const router = express.Router();
 
+function execSQLQuery(sqlQry, resCallback){
+  const connection = mysql.createConnection({
+    host     : 'localhost',
+    port     : 3306,
+    user     : 'root',
+    password : 'mamute1802!',
+    database : 'Logistica'
+  });
+
+  connection.query(sqlQry, function(error, results, fields){
+      resCallback(error, results);
+
+      connection.end();
+
+      console.log(error);
+      console.log(results);
+
+  });
+}
+
 /* GET cadastro page. */
 
 // ----------------------------------------------------------------------------
@@ -207,18 +227,18 @@ router.get('/entrega', (req, res) => {
   const cadastroTitle = 'Cadastro de Entrega';
   const tableLabel = 'Entregas';
   const tableHeader = [
-    '#', 'Cliente', 'Contato Cliente', 
+    '#', 'Cliente', 'Contato Cliente',
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
   const tableContent = [
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X', 
+    ['1', 'Cliente X', 'Contato Cliente X',
     'Endereço Cliente X', 'Site X', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
@@ -230,12 +250,6 @@ router.get('/entrega', (req, res) => {
       {id: '4', nome: 'Site Z'}
   ];
 
-  const entregadores = [
-      {id: '123456', nome: 'Entregador X'},
-      {id: '123457', nome: 'Entregador Y'},
-      {id: '333414', nome: 'Entregador C'},
-  ];
-
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
@@ -245,7 +259,7 @@ router.get('/entrega', (req, res) => {
       { titulo: 'Contato Cliente', identificador: 'txtContatoCliente' },
       { titulo: 'Endereço Cliente', identificador: 'txtEndCliente' },
       { titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites},
-      { titulo: 'Entregador', identificador: 'slEntregador', tipo: 'select', options: entregadores},
+      { titulo: 'Entregador', identificador: 'txtCpfEntregador'},
       { titulo: 'Data Envio', identificador: 'txtDataEnv' },
       { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
       { titulo: 'Localização', identificador: 'txtLocal' },

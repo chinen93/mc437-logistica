@@ -16,6 +16,7 @@ const alterar = require('./routes/cadastro/alterar.js');
 const remover = require('./routes/cadastro/remover.js');
 const list = require('./routes/list/index.js');
 const err404 = require('./routes/404/index');
+const mysql = require('mysql');
 
 const app = express();
 
@@ -27,6 +28,20 @@ if (process.env.NODE_ENV === 'production') {
     } else {
       next();
     }
+  });
+}
+
+function execSQLQuery(sqlQry, resCallback){
+  const connection = mysql.createConnection({
+    host     : 'localhost',
+    port     : 3306,
+    user     : 'root',
+    password : 'mamute1802!',
+    database : 'Logistica'
+  });
+
+  return connection.query(sqlQry, function(error, results, fields){
+      resCallback(error, results);
   });
 }
 
