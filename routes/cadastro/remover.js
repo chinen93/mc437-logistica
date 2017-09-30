@@ -5,21 +5,19 @@ const express = require('express');
 const router = express.Router();
 
 const Site = require('./../../models/site');
+const Transportadora = require('./../../models/transportadora');
+
 
 router.post('/', (req, res) => {
   const tableContent = Object.keys(req.body).map(key => [req.body[key]]);
 
-  var query;
-  var r;
+  var type = req.body.type;
 
-  if (req.query.type == 'site'){
+  if (type === 'site')
     Site.delete(req.body.txtId);
-  }
 
-  if (req.query.type == 'transportadora'){
-    var query = "DELETE FROM transportadora WHERE id_site= " + req.body.txtId + ";"
-    var r;
-  }
+  if (type === 'transportadora')
+    Transportadora.delete(req.body.txtId);
 
   res.render('cadastro/confirma', {
     tableContent

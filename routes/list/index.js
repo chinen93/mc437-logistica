@@ -3,6 +3,7 @@
 const express = require('express');
 
 const Site = require('./../../models/site');
+const Transportadora = require('./../../models/transportadora');
 
 const router = express.Router();
 
@@ -32,19 +33,19 @@ router.get('/transportadoras', (req, res) => {
   // ];
 
   var tableLabel = "Lista Transportadoras";
-  // var dropdownTitle = "Transportadoras";
-  // var dropdownList = [
-  //     {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
-  //     {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
-  //     {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
-  // ];
+  var dropdownTitle = "Transportadoras";
+  var dropdownList = [
+      {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
+      {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
+      {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
+  ];
 
-  execSQLQuery("SELECT * from transportadora;", function(e, r){
+  Transportadora.all(function(r){
     var tableContent = [];
 
     console.log(r);
     for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id_transportadora, r[i].contato_responsavel_transportadora, r[i].nome_transportadora, r[i].preco_embalagem_cm_quadrado, r[i].taxa_entrega])
+      tableContent.push([r[i].id, r[i].contato, r[i].nome, r[i].precoCm, r[i].taxa])
 
       var listCadastroSubtitle = undefined;
       var dropdownList = undefined;
