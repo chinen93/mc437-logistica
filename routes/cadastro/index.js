@@ -33,16 +33,9 @@ function execSQLQuery(sqlQry, resCallback){
 // ----------------------------------------------------------------------------
 
 router.get('/transportadora', (req, res) => {
+  const Transportadora = require('./../../models/transportadora');
+
   const cadastroTitle = 'Cadastro de Transportadoras';
-  const tableLabel = 'Transportadora';
-  const tableHeader = [
-    '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
-  ];
-  const tableContent = [
-    ['1', 'Transp X', '1234', 'R$ 1,23', 'R$ 1,23'],
-    ['2', 'Transp Y', '123', 'R$ 4,56', 'R$ 1,23'],
-    ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
-  ];
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
@@ -76,19 +69,39 @@ router.get('/transportadora', (req, res) => {
     ]
   };
   const formType = 'transportadora';
+  const tableLabel = 'Transportadora';
+  const tableHeader = [
+    '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
+  ];
+  Transportadora.all(function(r){
+    var tableContent = [];
 
-  res.render('cadastro/index', {
-    cadastroTitle,
-    tableLabel,
-    tableHeader,
-    tableContent,
-    formAdicionar,
-    formRemover,
-    formAlterar,
-    formType
+    console.log(r);
+    for (var i = 0; i < r.length; i++)
+      tableContent.push([r[i].id, 
+			 r[i].contato, 
+			 r[i].nome, 
+			 r[i].precoCm, 
+			 r[i].taxa])
+
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
+
+      res.render('cadastro/index', {
+	cadastroTitle,
+	tableLabel,
+	tableHeader,
+	tableContent,
+	formAdicionar,
+	formRemover,
+	formAlterar,
+	formType
+      });
+      const nome = req.body.txtName;
+      console.log('get' + nome);
   });
-  const nome = req.body.txtName;
-  console.log('get' + nome);
+  
 });
 
 // ----------------------------------------------------------------------------
@@ -162,16 +175,9 @@ router.get('/entregador', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/site', (req, res) => {
+  const Site = require('./../../models/site');
+
   const cadastroTitle = 'Cadastro de Site';
-  const tableLabel = 'Sites';
-  const tableHeader = [
-    '#', 'Nome', 'Contato', 'Endereço Web'
-  ];
-  const tableContent = [
-    ['1', 'Site X', '098', 'http://'],
-    ['2', 'Site Y', '1234', 'http://'],
-    ['3', 'Site Z', '111234', 'http://']
-  ];
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
@@ -201,20 +207,41 @@ router.get('/site', (req, res) => {
       { titulo: 'Endereço Web', identificador: 'txtEndereçoWeb' }
     ]
   };
+
   const formType = 'site';
 
-  res.render('cadastro/index', {
-    cadastroTitle,
-    tableLabel,
-    tableHeader,
-    tableContent,
-    formAdicionar,
-    formRemover,
-    formAlterar,
-    formType
+  const tableLabel = 'Sites';
+  const tableHeader = [
+    '#', 'Nome', 'Contato', 'Endereço Web'
+  ];
+  Site.all(function(s){
+    var tableContent = [];
+
+    for (var i = 0; i < s.length; i++)
+      tableContent.push([ s[i].id, 
+			  s[i].nome, 
+			  s[i].contato, 
+			  s[i].endereco]);
+
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
+
+      res.render('cadastro/index', {
+	cadastroTitle,
+	tableLabel,
+	tableHeader,
+	tableContent,
+	formAdicionar,
+	formRemover,
+	formAlterar,
+	formType
+      });
+      const nome = req.body.txtName;
+      console.log('get' + nome);
   });
-  const nome = req.body.txtName;
-  console.log('get' + nome);
+
+  
 });
 
 // ----------------------------------------------------------------------------
