@@ -4,6 +4,26 @@ const express = require('express');
 
 const router = express.Router();
 
+function execSQLQuery(sqlQry, resCallback){
+  const connection = mysql.createConnection({
+    host     : 'localhost',
+    port     : 3306,
+    user     : 'root',
+    password : 'mamute1802!',
+    database : 'Logistica'
+  });
+
+  connection.query(sqlQry, function(error, results, fields){
+      resCallback(error, results);
+
+      connection.end();
+
+      console.log(error);
+      console.log(results);
+
+  });
+}
+
 /* GET cadastro page. */
 
 // ----------------------------------------------------------------------------
@@ -229,7 +249,7 @@ router.get('/entrega', (req, res) => {
       {id: '3', nome: 'Site C'},
       {id: '4', nome: 'Site Z'}
   ];
-  
+
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',

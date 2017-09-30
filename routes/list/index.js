@@ -2,25 +2,9 @@
 
 const express = require('express');
 
+const Site = require('./../../models/site');
+
 const router = express.Router();
-
-const mysql = require('mysql');
-
-
-function execSQLQuery(sqlQry, resCallback){
-  const connection = mysql.createConnection({
-    host     : 'localhost',
-    port     : 3306,
-    user     : 'root',
-    password : 'mamute1802!',
-    database : 'Logistica'
-  });
-
-  return connection.query(sqlQry, function(error, results, fields){
-      resCallback(error, results);
-  });
-}
-
 
 /* GET cadastro page. */
 
@@ -41,28 +25,26 @@ router.get('/transportadoras', (req, res) => {
   const tableHeader = [
     '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
   ];
-  const tableContent = [
-    ['1', 'Transp X', '1234', 'R$ 1,23', 'R$ 1,23'],
-    ['2', 'Transp Y', '123', 'R$ 4,56', 'R$ 1,23'],
-    ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
-  ];
+  // const tableContent = [
+  //   ['1', 'Transp X', '1234', 'R$ 1,23', 'R$ 1,23'],
+  //   ['2', 'Transp Y', '123', 'R$ 4,56', 'R$ 1,23'],
+  //   ['3', 'Transp Z', '12344', 'R$ 7,89', 'R$ 1,23']
+  // ];
 
   var tableLabel = "Lista Transportadoras";
-  var dropdownTitle = "Transportadoras";
-  var dropdownList = [
-      {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
-      {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
-      {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
-  ];
+  // var dropdownTitle = "Transportadoras";
+  // var dropdownList = [
+  //     {text:"Transportadora X", url:"/cadastro/entregador?id=1"},
+  //     {text:"Transportadora Y", url:"/cadastro/entregador?id=2"},
+  //     {text:"Transportadora Z", url:"/cadastro/entregador?id=3"}
+  // ];
 
-
-
-  execSQLQuery("SELECT * from site;", function(e, r){
+  execSQLQuery("SELECT * from transportadora;", function(e, r){
     var tableContent = [];
 
     console.log(r);
     for (var i = 0; i < r.length; i++)
-      tableContent.push([ r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site])
+      tableContent.push([r[i].id_transportadora, r[i].contato_responsavel_transportadora, r[i].nome_transportadora, r[i].preco_embalagem_cm_quadrado, r[i].taxa_entrega])
 
       var listCadastroSubtitle = undefined;
       var dropdownList = undefined;
@@ -104,12 +86,11 @@ router.get('/sites', (req, res) => {
     '#', 'Nome', 'Contato', 'Endereço Web'
   ];
 
-  execSQLQuery("SELECT * from site;", function(e, r){
+  Site.all(function(s){
     var tableContent = [];
 
-    console.log(r);
-    for (var i = 0; i < r.length; i++)
-      tableContent.push([ r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site])
+    for (var i = 0; i < s.length; i++)
+      tableContent.push([ s[i].id, s[i].nome, s[i].contato, s[i].endereco])
 
       var listCadastroSubtitle = undefined;
       var dropdownList = undefined;
