@@ -9,20 +9,26 @@ const Entregador = function (id_transportadora, cpf, nome, placa, modelo) {
 };
 
 exports.new = function (cpf, id_transportadora, nome, placa, modelo) {
-  var query = "INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('" + cpf + "', '" + id_transportadora + "', '" + nome + "', '" + placa + "', '" + modelo + "');";
+  let query = `INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('${cpf}','${id_transportadora}','${nome}','${placa}','${modelo}');`;
   database.execSQLQuery(query, () => {});
 
-  query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
+  query = `INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('${cpf}','${id_transportadora}');`;
   database.execSQLQuery(query, () => {});
 };
 
-exports.employed_by = function (id_transportadora, callbackFunction){
-  const query = "SELECT * FROM entregador WHERE id_transportadora=" + id_transportadora + ";";
+exports.employed_by = function (id_transportadora, callbackFunction) {
+  const query = `SELECT * FROM entregador WHERE id_transportadora=${id_transportadora};`;
   database.execSQLQuery(query, (e, r) => {
     const all = [];
 
     for (let i = 0; i < r.length; i += 1) {
-      all.push(new Entregador(r[i].id_transportadora, r[i].CPFentregador, r[i].nome_entregador, r[i].placa_veiculo, r[i].modelo_veiculo));
+      all.push(new Entregador(
+        r[i].id_transportadora,
+        r[i].CPFentregador,
+        r[i].nome_entregador,
+        r[i].placa_veiculo,
+        r[i].modelo_veiculo
+      ));
     }
 
     callbackFunction(all);
@@ -34,7 +40,13 @@ exports.all = function (callbackFunction) {
     const all = [];
 
     for (let i = 0; i < r.length; i += 1) {
-      all.push(new Entregador(r[i].id_transportadora, r[i].CPFentregador, r[i].nome_entregador, r[i].placa_veiculo, r[i].modelo_veiculo));
+      all.push(new Entregador(
+        r[i].id_transportadora,
+        r[i].CPFentregador,
+        r[i].nome_entregador,
+        r[i].placa_veiculo,
+        r[i].modelo_veiculo
+      ));
     }
 
     callbackFunction(all);
@@ -42,17 +54,23 @@ exports.all = function (callbackFunction) {
 };
 
 exports.delete = function (cpf, id_entregadora) {
-  database.execSQLQuery('DELETE FROM entregador WHERE CPFentregador= ' + cpf + "and id_transportadora= " + id_entregadora +" ;", () => {});
+  database.execSQLQuery(`DELETE FROM entregador WHERE CPFentregador=${cpf} and id_transportadora=${id_entregadora};`, () => {});
 };
 
 exports.specific = function (cpf, id_entregadora, callbackFunction) {
-  database.execSQLQuery('SELECT * from entregador where CPFentregador=' + cpf + "and id_transportadora= " + id_entregadora +" ;", (e, r) => {
-    callbackFunction(new Entregador(r[i].id_transportadora, r[i].CPFentregador, r[i].nome_entregador, r[i].placa_veiculo, r[i].modelo_veiculo));
+  database.execSQLQuery(`SELECT * from entregador where CPFentregador=${cpf} and id_transportadora=${id_entregadora};`, (e, r) => {
+    callbackFunction(new Entregador(
+      r[0].id_transportadora,
+      r[0].CPFentregador,
+      r[0].nome_entregador,
+      r[0].placa_veiculo,
+      r[0].modelo_veiculo
+    ));
   });
 };
 
 exports.update = function (cpf, id_transportadora, nome, placa, modelo) {
-  const query = "UPDATE entregador SET nome_entregador='" + nome + "', ' placa_veiculo='" + placa + "', modelo_veiculo='" + modelo + "' WHERE CPFentregador=" + cpf + " and id_transportadora='" + id_transportadora + "';";
+  const query = `UPDATE entregador SET nome_entregador='${nome}', placa_veiculo='${placa}', modelo_veiculo='${modelo}' WHERE CPFentregador=${cpf} and id_transportadora='${id_transportadora}';`;
 
   database.execSQLQuery(query, () => {});
 };
