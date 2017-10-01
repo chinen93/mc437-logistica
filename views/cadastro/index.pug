@@ -4,25 +4,33 @@ mixin create-form(formulario)
   form(action='/site/cadastro'+ formulario.action + '?type=' + formType, method='post')
     input(type='hidden', name='formType', value=formType)
     each input,index in formulario.inputs
-      if input.tipo == "radio"
-        .radio-inline
-           input(type='radio', name=input.identificador, value=input.value)
-           = input.titulo
-      else
-        label= input.titulo
-        if input.tipo == "valor"
+      case input.tipo
+
+        when 'radio'
+          .radio-inline
+             input(type='radio', name=input.identificador, value=input.value)
+             = input.titulo
+
+        when 'valor'
+          label= input.titulo
           +input-group("R$")
             +input-simple("text", "", {name: "" + input.identificador})
-        else
-          if input.tipo == "select"
-            div
+
+        when 'hidden'
+          input(type='hidden', name=input.identificador, value=input.value)
+
+        when 'select'
+          label= input.titulo
+          div
               select(name=input.identificador)
                 each selectOption in input.options
                   option(value=selectOption.id)
-                    = selectOption.nome  
-          else
-            +input-simple("text", "", {name: "" + input.identificador})
-        p
+                    = selectOption.nome
+
+        default
+          label= input.titulo
+          +input-simple("text", "", {name: "" + input.identificador})
+      p
     p
     +submit("" + formulario.submitTxt)
 
