@@ -29,11 +29,6 @@ router.get('/transportadoras', (req, res) => {
 
   const tableLabel = 'Lista Transportadoras';
   const dropdownTitle = 'Transportadoras';
-  const dropdownList = [
-    { text: 'Transportadora X', url: '/cadastro/entregador?id=1' },
-    { text: 'Transportadora Y', url: '/cadastro/entregador?id=2' },
-    { text: 'Transportadora Z', url: '/cadastro/entregador?id=3' }
-  ];
 
   Transportadora.all((r) => {
     const tableContent = [];
@@ -50,6 +45,14 @@ router.get('/transportadoras', (req, res) => {
       ]);
     }
 
+    const dropdownList = [];
+    for (let i = 0; i < r.length; i += 1) {
+      var item = {
+        text: r[i].nome,
+        url: '/site/cadastro/entregador/?id='+r[i].id
+      };
+      dropdownList.push(item);
+    }
 
     res.render('list/index', {
       listTitle,
