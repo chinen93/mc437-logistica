@@ -15,44 +15,44 @@ router.post('/', (req, res) => {
   const s = req.body;
   const { type } = req.query;
 
-  if (type === 'site') { 
-    Site.new(s.txtNome, 
-	     s.txtContato, 
+  if (type === 'site') {
+    Site.new(s.txtNome,
+	     s.txtContato,
 	     s.txtEndereçoWeb);
   }
 
-  if (type === 'entregador') { 
+  if (type === 'entregador') {
       if(!isNaN(parseFloat(s.txtCPF))){
 	Entregador.new(s.txtIdTransportadora,
-		       s.txtCPF, 
-		       s.txtNome, 
-		       s.txtPlacaVeiculo, 
+		       s.txtCPF,
+		       s.txtNome,
+		       s.txtPlacaVeiculo,
 		       s.txtModeloVeiculo);
       }else{
 	cadastroWithProblem = true
       }
   }
 
-  if (type === 'entrega') { 
-      Site.new(s.txtClientes, 
-	       s.txtContatoCliente, 
-	       s.txtEndCliente, 
-	       s.slSite, 
-	       s.txtCpfEntregador, 
-	       s.txt.DataEnv, 
-	       s.txt.DataPrevista, 
-	       s.txtLocal,  
+  if (type === 'entrega') {
+      Envio.new(s.txtClientes,
+	       s.txtContatoCliente,
+	       s.txtEndCliente,
+	       s.slSite,
+	       s.txtCpfEntregador,
+	       s.txtDataEnv,
+	       s.txtDataPrevista,
+	       s.txtLocal,
 	       s.txtPontosParada);
   }
 
 
-  if (type === 'transportadora') { 
+  if (type === 'transportadora') {
       if(!isNaN(parseFloat(s.txtPrecoCm)) &&
 	 !isNaN(parseFloat(s.txtTaxa))){
-	Transportadora.new(s.txtNome, 
-			   s.txtContato, 
-			   s.txtPrecoCm, 
-			   s.txtTaxa); 
+	Transportadora.new(s.txtNome,
+			   s.txtContato,
+			   s.txtPrecoCm,
+			   s.txtTaxa);
       }else{
 	cadastroWithProblem = true
       }

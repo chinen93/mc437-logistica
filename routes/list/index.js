@@ -43,10 +43,10 @@ router.get('/transportadoras', (req, res) => {
     console.log(r);
 
     for (let i = 0; i < r.length; i += 1) {
-      tableContent.push([r[i].id, 
-			 r[i].contato, 
-			 r[i].nome, 
-			 r[i].precoCm, 
+      tableContent.push([r[i].id,
+			 r[i].contato,
+			 r[i].nome,
+			 r[i].precoCm,
 			 r[i].taxa]);
     }
 
@@ -91,9 +91,9 @@ router.get('/sites', (req, res) => {
     const tableContent = [];
 
     for (let i = 0; i < s.length; i += 1) {
-      tableContent.push([s[i].id, 
-			 s[i].nome, 
-			 s[i].contato, 
+      tableContent.push([s[i].id,
+			 s[i].nome,
+			 s[i].contato,
 			 s[i].endereco]);
     }
 
@@ -127,30 +127,35 @@ router.get('/entregas', (req, res) => {
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
-  Site.all((s) => {
-    const tableContent = [];
 
+
+  Envio.all((s) => {
+    const tableContent = [];
+    console.log(s);
     for (let i = 0; i < s.length; i += 1) {
-      tableContent.push([s[i].id_envio, 
-			 s[i].cliente, 
-			 s[i].contato_cliente, 
-			 s[i].endereco_cliente, 
-			 s[i].id_site, 
-			 s[i].CPFentregador, 
-			 s[i].data_envio, 
-			 s[i].prazo_previsto, 
-			 s[i].localizacao, 
+      tableContent.push([s[i].id_envio,
+			 s[i].cliente,
+			 s[i].contato_cliente,
+			 s[i].endereco_cliente,
+			 s[i].id_site,
+			 s[i].CPFentregador,
+			 s[i].data_envio,
+			 s[i].prazo_previsto,
+			 s[i].localizacao,
 			 s[i].pontos_de_parada]);
     }
 
     res.render('list/index', {
-	listTitle,
-	listCadastroTitle,
-	urlCadastroTitle,
-	tableLabel,
-	tableHeader,
-	tableContent
+    	listTitle,
+    	listCadastroTitle,
+    	urlCadastroTitle,
+    	tableLabel,
+    	tableHeader,
+    	tableContent
     });
+
+
+
   const nome = req.body.txtName;
   console.log('get' + nome);
   });

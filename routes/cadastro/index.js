@@ -77,16 +77,16 @@ router.get('/transportadora', (req, res) => {
   ];
 
   const { alert } = req.query;
-    
+
   Transportadora.all(function(r){
     var tableContent = [];
 
     console.log(r);
     for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id, 
-			 r[i].contato, 
-			 r[i].nome, 
-			 r[i].precoCm, 
+      tableContent.push([r[i].id,
+			 r[i].contato,
+			 r[i].nome,
+			 r[i].precoCm,
 			 r[i].taxa])
 
       var listCadastroSubtitle = undefined;
@@ -107,7 +107,7 @@ router.get('/transportadora', (req, res) => {
       const nome = req.body.txtName;
       console.log('get' + nome);
   });
-  
+
 });
 
 // ----------------------------------------------------------------------------
@@ -156,17 +156,17 @@ router.get('/entregador', (req, res) => {
   ];
   const formType = 'entregador';
 
-  const { alert } = req.query;    
+  const { alert } = req.query;
 
   Entregador.all(function(r){
     var tableContent = [];
 
     console.log(r);
     for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id, 
-			 r[i].CPF, 
-			 r[i].nome, 
-			 r[i].placaVeiculo, 
+      tableContent.push([r[i].id,
+			 r[i].CPF,
+			 r[i].nome,
+			 r[i].placaVeiculo,
 			 r[i].modeloVeiculo])
 
       var listCadastroSubtitle = undefined;
@@ -188,7 +188,7 @@ router.get('/entregador', (req, res) => {
       console.log('get' + nome);
   });
 
- 
+
 });
 
 // ----------------------------------------------------------------------------
@@ -239,9 +239,9 @@ router.get('/site', (req, res) => {
     var tableContent = [];
 
     for (var i = 0; i < s.length; i++)
-      tableContent.push([ s[i].id, 
-			  s[i].nome, 
-			  s[i].contato, 
+      tableContent.push([ s[i].id,
+			  s[i].nome,
+			  s[i].contato,
 			  s[i].endereco]);
 
       var listCadastroSubtitle = undefined;
@@ -263,7 +263,7 @@ router.get('/site', (req, res) => {
       console.log('get' + nome);
   });
 
-  
+
 });
 
 // ----------------------------------------------------------------------------
@@ -292,12 +292,12 @@ router.get('/entrega', (req, res) => {
       'Prazo Previsto', 'Localização', 'Pontos De Parada']
   ];
 
-  const sites = [
-    { id: '1', nome: 'Site X' },
-    { id: '2', nome: 'Site Y' },
-    { id: '3', nome: 'Site C' },
-    { id: '4', nome: 'Site Z' }
-  ];
+  const sites = [];
+  Site.all((s) => {
+    for (let i = 0; i < s.length; i++){
+      sites.push({id:s[i].id, nome:s[i].nome});
+    }
+  })
 
   const formAdicionar = {
     action: '/adicionar',
@@ -310,7 +310,7 @@ router.get('/entrega', (req, res) => {
       {
         titulo: 'Site', identificador: 'slSite', tipo: 'select', options: sites
       },
-      { titulo: 'Entregador', identificador: 'txtCpfEntregador' },
+      { titulo: 'CPF Entregador', identificador: 'txtCpfEntregador' },
       { titulo: 'Data Envio', identificador: 'txtDataEnv' },
       { titulo: 'Previsão Entrega', identificador: 'txtDataPrevista' },
       { titulo: 'Localização', identificador: 'txtLocal' },
@@ -351,14 +351,14 @@ router.get('/entrega', (req, res) => {
 
     console.log(r);
     for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id, 
-			 r[i].cliente, 
-			 r[i].contatoCliente, 
-			 r[i].endCliente, 
-			 r[i].slSite, 
-			 r[i].dataEnv, 
-			 r[i].dataPrevista, 
-			 r[i].local, 
+      tableContent.push([r[i].id,
+			 r[i].cliente,
+			 r[i].contatoCliente,
+			 r[i].endCliente,
+			 r[i].slSite,
+			 r[i].dataEnv,
+			 r[i].dataPrevista,
+			 r[i].local,
 			 r[i].pontosParada])
 
       var listCadastroSubtitle = undefined;

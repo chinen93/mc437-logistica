@@ -15,11 +15,11 @@ Envio = function(id_envio, cliente, contato_cliente, endereco_cliente, id_site, 
 
 exports.new = function (cliente, contato_cliente, endereco_cliente, id_site, CPFentregador, data_envio, prazo_previsto, localizacao, pontos_de_parada) {
   var query = "INSERT INTO envio(cliente, contato_cliente, endereco_cliente, id_site, CPFentregador, data_envio, prazo_previsto, localizacao, pontos_de_parada) ";
-  query      += "VALUES('" + cliente + "', '" + contato_cliente +  "', '" + endereco_cliente + "', '" + id_site + "', '" + CPFentregador + "', '" + data_envio + "','" + prazo_previsto + "','" + localizacao + "','" + pontos_de_parada + "');";
+  query      += "VALUES('" + cliente + "', '" + contato_cliente +  "', '" + endereco_cliente + "', '" + id_site + "', '" + CPFentregador + "', '" + data_envio + "','" + prazo_previsto + "','" + localizacao + "','[" + pontos_de_parada + "]');";
   database.execSQLQuery(query, () => {});
-
-  var query = "INSERT INTO entregue_por(id_envio, CPFentregador) VALUES(" + id_envio + "','" + CPFentregador + "');";
-  database.execSQLQuery(query, () => {});
+  //
+  // query = "INSERT INTO entregue_por(id_envio, CPFentregador) VALUES(LAST_INSERT_ID(), " + CPFentregador + ");";
+  // database.execSQLQuery(query, () => {});
 };
 
 exports.all = function (callbackFunction) {

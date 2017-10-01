@@ -17,11 +17,12 @@ exports.all = function (callbackFunction) {
   database.execSQLQuery('SELECT * from site;', (e, r) => {
     const allSites = [];
 
+    console.log(e);
 
     for (let i = 0; i < r.length; i += 1) {
-      allSites.push(new Site(r[i].id_site, 
-			     r[i].nome, 
-			     r[i].contato_responsavel_site, 
+      allSites.push(new Site(r[i].id_site,
+			     r[i].nome,
+			     r[i].contato_responsavel_site,
 			     r[i].endereco_site));
     }
 
@@ -41,9 +42,9 @@ exports.specific = function (id) {
     const allSites = [];
 
     for (let i = 0; i < r.length; i += 1) {
-      allSites.push(new Site(r[i].id_site, 
-			     r[i].nome, 
-			     r[i].contato_responsavel_site, 
+      allSites.push(new Site(r[i].id_site,
+			     r[i].nome,
+			     r[i].contato_responsavel_site,
 			     r[i].endereco_site));
     }
 

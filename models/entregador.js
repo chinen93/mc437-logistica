@@ -12,7 +12,7 @@ exports.new = function (cpf, id_transportadora, nome, placa, modelo) {
   var query = "INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('" + cpf + "', '" + id_transportadora + "', '" + nome + "', '" + placa + "', '" + modelo + "');";
   database.execSQLQuery(query, () => {});
 
-  var query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
+  query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
   database.execSQLQuery(query, () => {});
 };
 
