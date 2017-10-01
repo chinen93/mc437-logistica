@@ -61,6 +61,4 @@ exports.update = function (id, nome, contato, endereco) {
   database.execSQLQuery(query, () => {});
 };
 
-exports.findByAttribute = function (atts) {
-
-};
+exports.findByAttribute = function () {};

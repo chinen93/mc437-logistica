@@ -4,10 +4,10 @@ const express = require('express');
 
 const router = express.Router();
 
-const Site = require('./../../models/site');
-const Transportadora = require('./../../models/transportadora');
-const Entregador = require('./../../models/entregador');
-const Envio = require('./../../models/envio');
+const Site = require('./../../../models/site');
+const Transportadora = require('./../../../models/transportadora');
+const Entregador = require('./../../../models/entregador');
+const Envio = require('./../../../models/envio');
 
 let cadastroWithProblem = false;
 
@@ -48,9 +48,9 @@ router.post('/', (req, res) => {
   }
 
   if (!cadastroWithProblem) {
-    res.redirect('/cadastro/' + type + '?alert=1');
+    res.redirect('/site/cadastro/' + type + '?alert=1');
   } else {
-    res.redirect('/cadastro/' + type + '?alert=0');
+    res.redirect('/site/cadastro/' + type + '?alert=0');
   }
 });
 

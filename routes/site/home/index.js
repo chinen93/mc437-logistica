@@ -6,7 +6,7 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.redirect('/list/entregas');
+  res.redirect('/site/list/entregas');
   // res.render('home/index');
 });
 

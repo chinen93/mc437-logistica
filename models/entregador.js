@@ -75,6 +75,4 @@ exports.update = function (cpf, id_transportadora, nome, placa, modelo) {
   database.execSQLQuery(query, () => {});
 };
 
-exports.findByAttribute = function (atts) {
-
-};
+exports.findByAttribute = function () {};

@@ -3,10 +3,10 @@
 const express = require('express');
 
 const router = express.Router();
-const Site = require('./../../models/site');
-const Transportadora = require('./../../models/transportadora');
-const Envio = require('./../../models/envio');
-const Entregador = require('./../../models/entregador');
+const Site = require('./../../../models/site');
+const Transportadora = require('./../../../models/transportadora');
+const Envio = require('./../../../models/envio');
+const Entregador = require('./../../../models/entregador');
 
 /* GET cadastro page. */
 

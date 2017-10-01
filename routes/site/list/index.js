@@ -4,9 +4,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const Site = require('./../../models/site');
-const Transportadora = require('./../../models/transportadora');
-const Envio = require('./../../models/envio');
+const Site = require('./../../../models/site');
+const Transportadora = require('./../../../models/transportadora');
+const Envio = require('./../../../models/envio');
 
 /* GET cadastro page. */
 
@@ -19,7 +19,7 @@ router.get('/transportadoras', (req, res) => {
   const listTitle = 'Ações Transportadora';
 
   const listCadastroTitle = 'Cadastro de Transportadora';
-  const urlCadastroTitle = '/cadastro/transportadora';
+  const urlCadastroTitle = '/site/cadastro/transportadora';
 
   const listCadastroSubtitle = 'Cadastro de Entregadores da Transportadora';
 
@@ -78,7 +78,7 @@ router.get('/sites', (req, res) => {
   const listTitle = 'Ações Site';
 
   const listCadastroTitle = 'Cadastro de Site';
-  const urlCadastroTitle = '/cadastro/site';
+  const urlCadastroTitle = '/site/cadastro/site';
 
   const tableLabel = 'Lista Site';
 
@@ -118,7 +118,7 @@ router.get('/entregas', (req, res) => {
   const listTitle = 'Ações Entrega';
 
   const listCadastroTitle = 'Cadastro de Entrega';
-  const urlCadastroTitle = '/cadastro/entrega';
+  const urlCadastroTitle = '/site/cadastro/entrega';
 
   const tableLabel = 'Lista Entrega';
 

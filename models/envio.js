@@ -63,10 +63,6 @@ exports.all = function (callbackFunction) {
   });
 };
 
-exports.delete = function (id) {
-  // Este modelo nao eh deletavel
-};
-
 const specific = function (id, callbackFunction) {
   database.execSQLQuery(`SELECT * from envio where id_envio=${id};`, (e, r) => {
     callbackFunction(new Envio(
@@ -124,10 +120,12 @@ exports.by_site = function (idSite, callbackFunction) {
   });
 };
 
-exports.update = function (id, name, contato, endereco) {
+exports.delete = function () {
+  // Este modelo nao eh deletavel
+};
+
+exports.update = function () {
   // Este modelo nao faz update
 };
 
-exports.findByAttribute = function (atts) {
-
-};
+exports.findByAttribute = function () {};

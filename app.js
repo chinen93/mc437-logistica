@@ -9,14 +9,9 @@ const favicon = require('serve-favicon');
 const helmet = require('helmet');
 const session = require('express-session');
 
-const home = require('./routes/home/index.js');
-const cadastro = require('./routes/cadastro/index.js');
-const adicionar = require('./routes/cadastro/adicionar.js');
-const alterar = require('./routes/cadastro/alterar.js');
-const remover = require('./routes/cadastro/remover.js');
-const list = require('./routes/list/index.js');
+const site = require('./routes/site/index.js');
+const api = require('./routes/api/index.js');
 const err404 = require('./routes/404/index');
-const mysql = require('mysql');
 
 const app = express();
 
@@ -28,20 +23,6 @@ if (process.env.NODE_ENV === 'production') {
     } else {
       next();
     }
-  });
-}
-
-function execSQLQuery(sqlQry, resCallback){
-  const connection = mysql.createConnection({
-    host     : 'localhost',
-    port     : 3306,
-    user     : 'root',
-    password : 'mamute1802!',
-    database : 'Logistica'
-  });
-
-  return connection.query(sqlQry, function(error, results, fields){
-      resCallback(error, results);
   });
 }
 
@@ -72,17 +53,17 @@ app.use(session({
 }));
 app.use(cookieParser());
 
-app.use('/', home);
-app.use('/cadastro', cadastro);
-app.use('/cadastro/adicionar', adicionar);
-app.use('/cadastro/alterar', alterar);
-app.use('/cadastro/remover', remover);
-app.use('/list', list);
+app.use('/site', site);
+app.use('/api', api);
 app.use('/404', err404);
+
+app.get('/', (req, res) => {
+  res.redirect('/site');
+});
 
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.redirect('/404');
 });
 
@@ -105,7 +86,7 @@ app.use((err, req, res) => {
   res.redirect('/404');
 });
 
-app.listen(3000, function () {
+app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
 });
 
