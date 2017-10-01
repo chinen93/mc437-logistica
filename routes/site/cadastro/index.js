@@ -3,30 +3,10 @@
 const express = require('express');
 
 const router = express.Router();
-const Site = require('./../../models/site');
-const Transportadora = require('./../../models/transportadora');
-const Envio = require('./../../models/envio');
-const Entregador = require('./../../models/entregador');
-
-
-function execSQLQuery(sqlQry, resCallback) {
-  const connection = mysql.createConnection({
-    host: process.env.RDS_HOSTNAME || 'localhost',
-    port: process.env.RDS_PORT || 3306,
-    user: process.env.RDS_USERNAME || 'root',
-    password: process.env.RDS_PASSWORD || '',
-    database: process.env.RDS_DB_NAME || 'logistica'
-  });
-
-  connection.query(sqlQry, (error, results) => {
-    resCallback(error, results);
-
-    connection.end();
-
-    console.log(error);
-    console.log(results);
-  });
-}
+const Site = require('./../../../models/site');
+const Transportadora = require('./../../../models/transportadora');
+const Envio = require('./../../../models/envio');
+const Entregador = require('./../../../models/entregador');
 
 /* GET cadastro page. */
 
@@ -78,36 +58,34 @@ router.get('/transportadora', (req, res) => {
 
   const { alert } = req.query;
 
-  Transportadora.all(function(r){
-    var tableContent = [];
+  Transportadora.all((r) => {
+    const tableContent = [];
 
     console.log(r);
-    for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id,
-			 r[i].contato,
-			 r[i].nome,
-			 r[i].precoCm,
-			 r[i].taxa])
+    for (let i = 0; i < r.length; i += 1) {
+      tableContent.push([
+        r[i].id,
+        r[i].contato,
+        r[i].nome,
+        r[i].precoCm,
+        r[i].taxa
+      ]);
+    }
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
-
-      res.render('cadastro/index', {
-	alert,
-	cadastroTitle,
-	tableLabel,
-	tableHeader,
-	tableContent,
-	formAdicionar,
-	formRemover,
-	formAlterar,
-	formType
-      });
-      const nome = req.body.txtName;
-      console.log('get' + nome);
+    res.render('cadastro/index', {
+      alert,
+      cadastroTitle,
+      tableLabel,
+      tableHeader,
+      tableContent,
+      formAdicionar,
+      formRemover,
+      formAlterar,
+      formType
+    });
+    const nome = req.body.txtName;
+    console.log('get' + nome);
   });
-
 });
 
 // ----------------------------------------------------------------------------
@@ -158,37 +136,34 @@ router.get('/entregador', (req, res) => {
 
   const { alert } = req.query;
 
-  Entregador.all(function(r){
-    var tableContent = [];
+  Entregador.all((r) => {
+    const tableContent = [];
 
     console.log(r);
-    for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id,
-			 r[i].CPF,
-			 r[i].nome,
-			 r[i].placaVeiculo,
-			 r[i].modeloVeiculo])
+    for (let i = 0; i < r.length; i += 1) {
+      tableContent.push([
+        r[i].id,
+        r[i].CPF,
+        r[i].nome,
+        r[i].placaVeiculo,
+        r[i].modeloVeiculo
+      ]);
+    }
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
-
-      res.render('cadastro/index', {
-	  alert,
-	  cadastroTitle,
-	  tableLabel,
-	  tableHeader,
-	  tableContent,
-	  formAdicionar,
-	  formRemover,
-	  formAlterar,
-	  formType
-      });
-      const nome = req.body.txtName;
-      console.log('get' + nome);
+    res.render('cadastro/index', {
+      alert,
+      cadastroTitle,
+      tableLabel,
+      tableHeader,
+      tableContent,
+      formAdicionar,
+      formRemover,
+      formAlterar,
+      formType
+    });
+    const nome = req.body.txtName;
+    console.log('get' + nome);
   });
-
-
 });
 
 // ----------------------------------------------------------------------------
@@ -235,35 +210,32 @@ router.get('/site', (req, res) => {
   const tableHeader = [
     '#', 'Nome', 'Contato', 'Endereço Web'
   ];
-  Site.all(function(s){
-    var tableContent = [];
+  Site.all((s) => {
+    const tableContent = [];
 
-    for (var i = 0; i < s.length; i++)
-      tableContent.push([ s[i].id,
-			  s[i].nome,
-			  s[i].contato,
-			  s[i].endereco]);
+    for (let i = 0; i < s.length; i += 1) {
+      tableContent.push([
+        s[i].id,
+        s[i].nome,
+        s[i].contato,
+        s[i].endereco
+      ]);
+    }
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
-
-      res.render('cadastro/index', {
-	alert,
-	cadastroTitle,
-	tableLabel,
-	tableHeader,
-	tableContent,
-	formAdicionar,
-	formRemover,
-	formAlterar,
-	formType
-      });
-      const nome = req.body.txtName;
-      console.log('get' + nome);
+    res.render('cadastro/index', {
+      alert,
+      cadastroTitle,
+      tableLabel,
+      tableHeader,
+      tableContent,
+      formAdicionar,
+      formRemover,
+      formAlterar,
+      formType
+    });
+    const nome = req.body.txtName;
+    console.log('get' + nome);
   });
-
-
 });
 
 // ----------------------------------------------------------------------------
@@ -280,24 +252,13 @@ router.get('/entrega', (req, res) => {
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
-  const tableContent = [
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada']
-  ];
 
   const sites = [];
   Site.all((s) => {
-    for (let i = 0; i < s.length; i++){
-      sites.push({id:s[i].id, nome:s[i].nome});
+    for (let i = 0; i < s.length; i += 1) {
+      sites.push({ id: s[i].id, nome: s[i].nome });
     }
-  })
+  });
 
   const formAdicionar = {
     action: '/adicionar',
@@ -346,38 +307,36 @@ router.get('/entrega', (req, res) => {
   const { alert } = req.query;
   const formType = 'entrega';
 
-  Envio.all(function(r){
-    var tableContent = [];
+  Envio.all((r) => {
+    const tableContent = [];
 
     console.log(r);
-    for (var i = 0; i < r.length; i++)
-      tableContent.push([r[i].id,
-			 r[i].cliente,
-			 r[i].contatoCliente,
-			 r[i].endCliente,
-			 r[i].slSite,
-			 r[i].dataEnv,
-			 r[i].dataPrevista,
-			 r[i].local,
-			 r[i].pontosParada])
+    for (let i = 0; i < r.length; i += 1) {
+      tableContent.push([
+        r[i].id,
+        r[i].cliente,
+        r[i].contatoCliente,
+        r[i].endCliente,
+        r[i].slSite,
+        r[i].dataEnv,
+        r[i].dataPrevista,
+        r[i].local,
+        r[i].pontosParada]);
+    }
 
-      var listCadastroSubtitle = undefined;
-      var dropdownList = undefined;
-      var dropdownTitle = undefined;
-
-      res.render('cadastro/index', {
-	  alert,
-	  cadastroTitle,
-	  tableLabel,
-	  tableHeader,
-	  tableContent,
-	  formAdicionar,
-	  formRemover,
-	  formAlterar,
-	  formType
-      });
-       const nome = req.body.txtName;
-       console.log('get' + nome);
+    res.render('cadastro/index', {
+      alert,
+      cadastroTitle,
+      tableLabel,
+      tableHeader,
+      tableContent,
+      formAdicionar,
+      formRemover,
+      formAlterar,
+      formType
+    });
+    const nome = req.body.txtName;
+    console.log('get' + nome);
   });
 });
 
