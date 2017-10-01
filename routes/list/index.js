@@ -4,6 +4,11 @@ const express = require('express');
 
 const router = express.Router();
 
+const Site = require('./../../models/site');
+const Transportadora = require('./../../models/transportadora');
+const Envio = require('./../../models/envio');
+const Entregador = require('./../../models/entregador');
+
 /* GET cadastro page. */
 
 // ----------------------------------------------------------------------------
@@ -12,7 +17,6 @@ const router = express.Router();
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 router.get('/transportadoras', (req, res) => {
-  const Transportadora = require('./../../models/transportadora');
 
   const listTitle = 'Ações Transportadora';
 
@@ -71,7 +75,7 @@ router.get('/transportadoras', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/sites', (req, res) => {
-  const Site = require('./../../models/site');
+
   const listTitle = 'Ações Site';
 
   const listCadastroTitle = 'Cadastro de Site';
@@ -123,28 +127,33 @@ router.get('/entregas', (req, res) => {
     'Endereço Cliente', 'Site', 'Data Envio',
     'Prazo Previsto', 'Localização', 'Pontos De Parada'
   ];
-  const tableContent = [
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada'],
-    ['1', 'Cliente X', 'Contato Cliente X',
-      'Endereço Cliente X', 'Site X', 'Data Envio',
-      'Prazo Previsto', 'Localização', 'Pontos De Parada']
-  ];
+  Site.all((s) => {
+    const tableContent = [];
 
-  res.render('list/index', {
-    listTitle,
-    listCadastroTitle,
-    urlCadastroTitle,
-    tableLabel,
-    tableHeader,
-    tableContent
-  });
+    for (let i = 0; i < s.length; i += 1) {
+      tableContent.push([s[i].id_envio, 
+			 s[i].cliente, 
+			 s[i].contato_cliente, 
+			 s[i].endereco_cliente, 
+			 s[i].id_site, 
+			 s[i].CPFentregador, 
+			 s[i].data_envio, 
+			 s[i].prazo_previsto, 
+			 s[i].localizacao, 
+			 s[i].pontos_de_parada]);
+    }
+
+    res.render('list/index', {
+	listTitle,
+	listCadastroTitle,
+	urlCadastroTitle,
+	tableLabel,
+	tableHeader,
+	tableContent
+    });
   const nome = req.body.txtName;
   console.log('get' + nome);
+  });
 });
 
 

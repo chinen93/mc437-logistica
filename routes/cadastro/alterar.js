@@ -16,10 +16,10 @@ router.post('/', (req, res) => {
 
   if (type === 'site') { 
       if(!isNaN(parseFloat(s.txtId))){
-	Site.alter(s.txtId, 
-		   s.txtNome, 
-		   s.txtContato, 
-		   s.txtEndereçoWeb);
+	Site.update(s.txtId, 
+		    s.txtNome, 
+		    s.txtContato, 
+		    s.txtEndereçoWeb);
       }else{
 	cadastroWithProblem = true
       }
@@ -28,12 +28,12 @@ router.post('/', (req, res) => {
   if (type === 'entregador') { 
       if(!isNaN(parseFloat(s.txtId)) &&
 	 !isNaN(parseFloat(s.txtCPF))){
-	Entregador.alter(s.txtId, 
-			 s.txtIdTransportadora,
-			 s.txtCPF, 
-			 s.txtNome, 
-			 s.txtPlacaVeiculo, 
-			 s.txtModeloVeiculo);
+	Entregador.update(s.txtId, 
+			  s.txtIdTransportadora,
+			  s.txtCPF, 
+			  s.txtNome, 
+			  s.txtPlacaVeiculo, 
+			  s.txtModeloVeiculo);
       }else{
 	cadastroWithProblem = true
       }
@@ -41,16 +41,16 @@ router.post('/', (req, res) => {
 
   if (type === 'entrega') { 
       if(!isNaN(parseFloat(s.txtId))){
-	Site.alter(s.txtId, 
-		   s.txtClientes, 
-		   s.txtContatoCliente, 
-		   s.txtEndCliente, 
-		   s.slSite, 
-		   s.txtCpfEntregador, 
-		   s.txtDataEnv, 
-		   s.txtDataPrevista, 
-		   s.txtLocal,  
-		   s.txtPontosParada);
+	Site.update(s.txtId, 
+		    s.txtClientes, 
+		    s.txtContatoCliente, 
+		    s.txtEndCliente, 
+		    s.slSite, 
+		    s.txtCpfEntregador, 
+		    s.txtDataEnv, 
+		    s.txtDataPrevista, 
+		    s.txtLocal,  
+		    s.txtPontosParada);
       }else{
 	cadastroWithProblem = true
       }
@@ -60,11 +60,11 @@ router.post('/', (req, res) => {
       if(!isNaN(parseFloat(s.txtId)) &&
 	 !isNaN(parseFloat(s.txtPrecoCm)) &&
 	 !isNaN(parseFloat(s.txtTaxa))){
-	Transportadora.alter(s.txtId,
-			     s.txtNome, 
-			     s.txtContato, 
-			     s.txtPrecoCm, 
-			     s.txtTaxa); 
+	Transportadora.update(s.txtId,
+			      s.txtNome, 
+			      s.txtContato, 
+			      s.txtPrecoCm, 
+			      s.txtTaxa); 
       }else{
 	cadastroWithProblem = true
       }

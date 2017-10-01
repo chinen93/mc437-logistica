@@ -42,4 +42,6 @@ exports.specific = function (id, callbackFunction) {
 
 exports.update = function (id, name, contato, precoCm, taxa) {
   const query = "UPDATE transportadora SET contato_responsavel_transportadora='" + contato + "', ' nome_transportadora='" + nome + "', preco_embalagem_cm_quadrado='" + precoCm + "', taxa_entrega='" + taxa + "' WHERE id_site=" + id + ';';
+
+  database.execSQLQuery(query, () => {});
 };

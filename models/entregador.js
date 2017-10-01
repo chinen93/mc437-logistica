@@ -9,10 +9,10 @@ const Entregador = function (id_transportadora, cpf, nome, placa, modelo) {
 };
 
 exports.new = function (cpf, id_transportadora, nome, placa, modelo) {
-  const query = "INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('" + cpf + "', '" + id_transportadora + "', '" + nome + "', '" + placa + "', '" + modelo + "');";
+  var query = "INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('" + cpf + "', '" + id_transportadora + "', '" + nome + "', '" + placa + "', '" + modelo + "');";
   database.execSQLQuery(query, () => {});
 
-  const query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
+  var query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
   database.execSQLQuery(query, () => {});
 };
 
@@ -53,6 +53,8 @@ exports.specific = function (cpf, id_entregadora, callbackFunction) {
 
 exports.update = function (cpf, id_transportadora, nome, placa, modelo) {
   const query = "UPDATE entregador SET nome_entregador='" + nome + "', ' placa_veiculo='" + placa + "', modelo_veiculo='" + modelo + "' WHERE CPFentregador=" + cpf + " and id_transportadora='" + id_transportadora + "';";
+
+  database.execSQLQuery(query, () => {});
 };
 
 exports.findByAttribute = function (atts) {

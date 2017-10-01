@@ -3,6 +3,11 @@
 const express = require('express');
 
 const router = express.Router();
+const Site = require('./../../models/site');
+const Transportadora = require('./../../models/transportadora');
+const Envio = require('./../../models/envio');
+const Entregador = require('./../../models/entregador');
+
 
 function execSQLQuery(sqlQry, resCallback) {
   const connection = mysql.createConnection({
@@ -32,8 +37,6 @@ function execSQLQuery(sqlQry, resCallback) {
 // ----------------------------------------------------------------------------
 
 router.get('/transportadora', (req, res) => {
-  const Transportadora = require('./../../models/transportadora');
-
   const cadastroTitle = 'Cadastro de Transportadoras';
   const formAdicionar = {
     action: '/adicionar',
@@ -75,7 +78,6 @@ router.get('/transportadora', (req, res) => {
 
   const { alert } = req.query;
     
-
   Transportadora.all(function(r){
     var tableContent = [];
 
@@ -196,8 +198,6 @@ router.get('/entregador', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/site', (req, res) => {
-  const Site = require('./../../models/site');
-
   const cadastroTitle = 'Cadastro de Site';
   const formAdicionar = {
     action: '/adicionar',
@@ -228,7 +228,7 @@ router.get('/site', (req, res) => {
       { titulo: 'Endereço Web', identificador: 'txtEndereçoWeb' }
     ]
   };
-
+  const { alert } = req.query;
   const formType = 'site';
 
   const tableLabel = 'Sites';
@@ -343,9 +343,10 @@ router.get('/entrega', (req, res) => {
       { titulo: 'Pontos Parada', identificador: 'txtPontosParada' }
     ]
   };
+  const { alert } = req.query;
   const formType = 'entrega';
 
-   Entrega.all(function(r){
+  Envio.all(function(r){
     var tableContent = [];
 
     console.log(r);
