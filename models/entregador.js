@@ -45,7 +45,7 @@ exports.delete = function (cpf, id_entregadora) {
   database.execSQLQuery('DELETE FROM entregador WHERE CPFentregador= ' + cpf + "and id_transportadora= " + id_entregadora +" ;", () => {});
 };
 
-exports.specific = function (cpf, id_entregadora) {
+exports.specific = function (cpf, id_entregadora, callbackFunction) {
   database.execSQLQuery('SELECT * from entregador where CPFentregador=' + cpf + "and id_transportadora= " + id_entregadora +" ;", (e, r) => {
     callbackFunction(new Entregador(r[i].id_transportadora, r[i].CPFentregador, r[i].nome_entregador, r[i].placa_veiculo, r[i].modelo_veiculo));
   });

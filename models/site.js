@@ -28,7 +28,7 @@ exports.delete = function (id) {
   database.execSQLQuery('DELETE FROM site WHERE id_site= ' + id + ';', () => {});
 };
 
-exports.specific = function (id) {
+exports.specific = function (id, callbackFunction) {
   database.execSQLQuery('SELECT * from site where id_site=' + id + ';', (e, r) => {
     callbackFunction( new Site(r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site) )
   });

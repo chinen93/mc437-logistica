@@ -34,7 +34,7 @@ exports.delete = function (id) {
   database.execSQLQuery('DELETE FROM transportadora WHERE id_transportadora= ' + id + ';', () => {});
 };
 
-exports.specific = function (id) {
+exports.specific = function (id, callbackFunction) {
   database.execSQLQuery('SELECT * from transportadora where id_transportadora=' + id + ';', (e, r) => {
     callbackFunction(new Transportadora(r[i].id_transportadora, r[i].nome_transportadora, r[i].contato_responsavel_transportadora, r[i].preco_embalagem_cm_quadrado, r[i].taxa_entrega));
   });
