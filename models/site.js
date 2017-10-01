@@ -54,6 +54,7 @@ exports.specific = function (id) {
 exports.alter = function (id, name, contato, endereco) {
   const query = "UPDATE site SET contato_responsavel_site='" + contato + "', 'nome='" + nome + "', '" + endereco + "' WHERE id_site=" + id + ';';
   database.execSQLQuery(query, () => {});
+
 };
 
 exports.findByAttribute = function (atts) {
