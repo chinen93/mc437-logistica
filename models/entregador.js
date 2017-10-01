@@ -11,6 +11,22 @@ const Entregador = function (id_transportadora, cpf, nome, placa, modelo) {
 exports.new = function (cpf, id_transportadora, nome, placa, modelo) {
   const query = "INSERT INTO entregador(CPFentregador, id_transportadora, nome_entregador, placa_veiculo, modelo_veiculo) VALUES ('" + cpf + "', '" + id_transportadora + "', '" + nome + "', '" + placa + "', '" + modelo + "');";
   database.execSQLQuery(query, () => {});
+
+  const query = "INSERT INTO contratado_por(CPFentregador, id_transportadora) VALUES ('" + cpf + "', '" + id_transportadora + "');";
+  database.execSQLQuery(query, () => {});
+};
+
+exports.employed_by = function (id_transportadora, callbackFunction){
+  const query = "SELECT * FROM entregador WHERE id_transportadora=" + id_transportadora + ";";
+  database.execSQLQuery(query, (e, r) => {
+    const all = [];
+
+    for (let i = 0; i < r.length; i += 1) {
+      all.push(new Entregador(r[i].id_transportadora, r[i].CPFentregador, r[i].nome_entregador, r[i].placa_veiculo, r[i].modelo_veiculo));
+    }
+
+    callbackFunction(all);
+  });
 };
 
 exports.all = function (callbackFunction) {

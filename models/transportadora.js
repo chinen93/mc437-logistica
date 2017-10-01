@@ -1,3 +1,4 @@
+const Entregador = require('./entregador');
 const database = require('./MysqlDatabase');
 
 const Transportadora = function (id, name, contato, precoCm, taxa) {
@@ -11,6 +12,10 @@ const Transportadora = function (id, name, contato, precoCm, taxa) {
 exports.new = function (nome, contato, precoCm, taxa) {
   const query = "INSERT INTO transportadora(nome_transportadora, contato_responsavel_transportadora, preco_embalagem_cm_quadrado, taxa_entrega) VALUES ('" + nome + "', '" + contato + "', '" + precoCm + "','" + taxa + "');";
   database.execSQLQuery(query, () => {});
+};
+
+exports.eployees = function (id_transportadora, callbackFunction){
+  Entregador.employed_by(id_transportadora, callbackFunction);
 };
 
 exports.all = function (callbackFunction) {
