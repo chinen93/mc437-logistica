@@ -57,5 +57,4 @@ router.delete('/:transportadora_id', (req, res) => {
   });
 });
 
-
 module.exports = router;

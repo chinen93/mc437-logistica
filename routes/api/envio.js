@@ -24,7 +24,8 @@ router.get('/:envio_id', (req, res) => {
   const { envio_id } = req.params;
 
   Envio.specific(envio_id, (results) => {
-    res.send(results);
+    if (results)
+      res.send(results);
   });
 });
 

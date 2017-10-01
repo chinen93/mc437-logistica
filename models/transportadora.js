@@ -52,6 +52,12 @@ exports.specific = function (id, callbackFunction) {
   });
 };
 
+exports.simulate = function (id, distancia_percurso, tamanho_cm2, preso_produto, callbackFunction){
+  specific(id, (e, r) => {
+    callbackFunction(r.preco_embalagem_cm_quadrado * tamanho_cm2 + r.taxa_entrega * distancia_percurso);
+  });
+};
+
 exports.update = function (id, nome, contato, precoCm, taxa) {
   const query = `UPDATE transportadora SET contato_responsavel_transportadora='${contato}', nome_transportadora='${nome}', preco_embalagem_cm_quadrado='${precoCm}', taxa_entrega='${taxa}' WHERE id_site=${id};`;
 

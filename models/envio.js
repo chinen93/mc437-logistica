@@ -43,21 +43,21 @@ exports.new = function (
 exports.all = function (callbackFunction) {
   database.execSQLQuery('SELECT * from envio;', (e, r) => {
     const all = [];
-
-    for (let i = 0; i < r.length; i += 1) {
-      all.push(new Envio(
-        r[i].id_envio,
-        r[i].cliente,
-        r[i].contato_cliente,
-        r[i].endereco_cliente,
-        r[i].id_site,
-        r[i].CPFentregador,
-        r[i].data_envio,
-        r[i].prazo_previsto,
-        r[i].localizacao,
-        r[i].pontos_de_parada
-      ));
-    }
+    if (r.length > 0 )
+      for (let i = 0; i < r.length; i += 1) {
+        all.push(new Envio(
+          r[i].id_envio,
+          r[i].cliente,
+          r[i].contato_cliente,
+          r[i].endereco_cliente,
+          r[i].id_site,
+          r[i].CPFentregador,
+          r[i].data_envio,
+          r[i].prazo_previsto,
+          r[i].localizacao,
+          r[i].pontos_de_parada
+        ));
+      }
 
     callbackFunction(all);
   });
@@ -65,18 +65,21 @@ exports.all = function (callbackFunction) {
 
 const specific = function (id, callbackFunction) {
   database.execSQLQuery(`SELECT * from envio where id_envio=${id};`, (e, r) => {
-    callbackFunction(new Envio(
-      r[0].id_envio,
-      r[0].cliente,
-      r[0].contato_cliente,
-      r[0].endereco_cliente,
-      r[0].id_site,
-      r[0].CPFentregador,
-      r[0].data_envio,
-      r[0].prazo_previsto,
-      r[0].localizacao,
-      r[0].pontos_de_parada
-    ));
+    if (r.length === 0)
+      callbackFunction([]);
+    else
+      callbackFunction(new Envio(
+        r[0].id_envio,
+        r[0].cliente,
+        r[0].contato_cliente,
+        r[0].endereco_cliente,
+        r[0].id_site,
+        r[0].CPFentregador,
+        r[0].data_envio,
+        r[0].prazo_previsto,
+        r[0].localizacao,
+        r[0].pontos_de_parada
+      ));
   });
 };
 exports.specific = specific;
