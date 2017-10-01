@@ -7,7 +7,8 @@ const Site = require('./../../../models/site');
 const Transportadora = require('./../../../models/transportadora');
 const Entregador = require('./../../../models/entregador');
 
-let cadastroWithProblem = false;
+let cadastroWithProblem = 1;
+let urlRedirect = '';
 
 router.post('/', (req, res) => {
   const s = req.body;
@@ -22,22 +23,24 @@ router.post('/', (req, res) => {
         s.txtEndereçoWeb
       );
     } else {
-      cadastroWithProblem = true;
+      cadastroWithProblem = 0;
     }
+    urlRedirect = '/site/cadastro/site?alert='+cadastroWithProblem;
   }
 
   if (type === 'entregador') {
-    if (!isNaN(parseFloat(s.txtId)) && !isNaN(parseFloat(s.txtCPF))) {
+    if (!isNaN(parseFloat(s.txtCPF))) {
       Entregador.update(
         s.txtCPF,
-        s.txtId,
+        s.txtIdTransportadora,
         s.txtNome,
         s.txtPlacaVeiculo,
         s.txtModeloVeiculo
       );
     } else {
-      cadastroWithProblem = true;
+      cadastroWithProblem = 0;
     }
+    urlRedirect = '/site/cadastro/entregador?id='+ s.txtIdTransportadora +'&alert='+cadastroWithProblem;
   }
 
   // if (type === 'entrega') {
@@ -55,8 +58,9 @@ router.post('/', (req, res) => {
   //       s.txtPontosParada
   //     );
   //   } else {
-  //     cadastroWithProblem = true;
+  //     cadastroWithProblem = 0;
   //   }
+  // urlRedirect = '/site/cadastro/entrega?alert='+cadastroWithProblem;
   // }
 
   if (type === 'transportadora') {
@@ -69,15 +73,12 @@ router.post('/', (req, res) => {
         s.txtTaxa
       );
     } else {
-      cadastroWithProblem = true;
+      cadastroWithProblem = 0;
     }
+    urlRedirect = '/site/cadastro/transportadora?alert='+cadastroWithProblem;
   }
 
-  if (!cadastroWithProblem) {
-    res.redirect('/site/cadastro/' + type + '?alert=1');
-  } else {
-    res.redirect('/site/cadastro/' + type + '?alert=0');
-  }
+  res.redirect(urlRedirect);
 });
 
 

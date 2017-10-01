@@ -9,7 +9,8 @@ const Transportadora = require('./../../../models/transportadora');
 const Entregador = require('./../../../models/entregador');
 const Envio = require('./../../../models/envio');
 
-let cadastroWithProblem = false;
+let cadastroWithProblem = 1;
+let urlRedirect = '';
 
 router.post('/', (req, res) => {
   const s = req.body;
@@ -21,14 +22,16 @@ router.post('/', (req, res) => {
     } else {
       cadastroWithProblem = true;
     }
+    urlRedirect = '/site/cadastro/site?alert='+cadastroWithProblem;
   }
 
   if (type === 'entregador') {
-    if (!isNaN(parseFloat(s.txtId))) {
-      Entregador.delete(s.txtId);
+    if (!isNaN(parseFloat(s.txtCPF))) {
+      Entregador.delete(s.txtCPF);
     } else {
       cadastroWithProblem = true;
     }
+    urlRedirect = '/site/cadastro/entregador?id='+ s.txtIdTransportadora +'&alert='+cadastroWithProblem;
   }
 
   if (type === 'entrega') {
@@ -37,6 +40,7 @@ router.post('/', (req, res) => {
     } else {
       cadastroWithProblem = true;
     }
+    urlRedirect = '/site/cadastro/entrega?alert='+cadastroWithProblem;
   }
 
   if (type === 'transportadora') {
@@ -45,13 +49,10 @@ router.post('/', (req, res) => {
     } else {
       cadastroWithProblem = true;
     }
+    urlRedirect = '/site/cadastro/transportadora?alert='+cadastroWithProblem;
   }
 
-  if (!cadastroWithProblem) {
-    res.redirect('/site/cadastro/' + type + '?alert=1');
-  } else {
-    res.redirect('/site/cadastro/' + type + '?alert=0');
-  }
+  res.redirect(urlRedirect);
 });
 
 

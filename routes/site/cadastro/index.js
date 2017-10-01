@@ -95,12 +95,20 @@ router.get('/transportadora', (req, res) => {
 // ----------------------------------------------------------------------------
 
 router.get('/entregador', (req, res) => {
-  const cadastroTitle = 'Cadastro de Entregador da Transportadora X';
+  var cadastroTitle = 'Cadastro de Entregador';
+
+  const idTransportadora = req.query.id;
+
+  Transportadora.specific(idTransportadora, (r) => {
+     cadastroTitle += ' da Transportadora: [' + r.nome  + ']';
+  });
+
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
     submitTxt: 'Adicionar Entregador',
     inputs: [
+      { titulo: 'Id Transportadora', identificador: 'txtIdTransportadora', tipo: 'hidden', value: idTransportadora},
       { titulo: 'CPF', identificador: 'txtCPF' },
       { titulo: 'Nome', identificador: 'txtNome' },
       { titulo: 'Placa Veículo', identificador: 'txtPlacaVeiculo' },
@@ -112,7 +120,8 @@ router.get('/entregador', (req, res) => {
     type: 'remover',
     submitTxt: 'Remover Entregador',
     inputs: [
-      { titulo: 'Identificador', identificador: 'txtId' }
+      { titulo: 'Id Transportadora', identificador: 'txtIdTransportadora', tipo: 'hidden', value: idTransportadora},
+      { titulo: 'CPF', identificador: 'txtCPF' }
     ]
   };
   const formAlterar = {
@@ -120,7 +129,7 @@ router.get('/entregador', (req, res) => {
     type: 'alterar',
     submitTxt: 'Alterar Entregador',
     inputs: [
-      { titulo: 'Identificador', identificador: 'txtId' },
+      { titulo: 'Id Transportadora', identificador: 'txtIdTransportadora', tipo: 'hidden', value: idTransportadora},
       { titulo: 'CPF', identificador: 'txtCPF' },
       { titulo: 'Nome', identificador: 'txtNome' },
       { titulo: 'Placa Veículo', identificador: 'txtPlacaVeiculo' },
@@ -130,23 +139,22 @@ router.get('/entregador', (req, res) => {
 
   const tableLabel = 'Entregadores';
   const tableHeader = [
-    '#', 'CPF', 'Nome', 'Placa Veículo', 'Modelo Veículo'
+    'CPF', 'Nome', 'Placa Veículo', 'Modelo Veículo'
   ];
   const formType = 'entregador';
 
   const { alert } = req.query;
 
-  Entregador.all((r) => {
+  Entregador.employed_by(idTransportadora, (r) => {
     const tableContent = [];
 
     console.log(r);
     for (let i = 0; i < r.length; i += 1) {
       tableContent.push([
-        r[i].id,
-        r[i].CPF,
+        r[i].cpf,
         r[i].nome,
-        r[i].placaVeiculo,
-        r[i].modeloVeiculo
+        r[i].placa,
+        r[i].modelo
       ]);
     }
 
