@@ -44,12 +44,12 @@ exports.specific = function (id, callbackFunction) {
   });
 };
 
-exports.updateLocalization(id, newLocalization){
+exports.updateLocalization = function(id, newLocalization){
   const query = "UPDATE envio SET localizacao='" + newLocalization + "' WHERE id_envio=" + id + ';';
   database.execSQLQuery(query, (e, r) => {});
 };
 
-exports.addCheckpoint(id, checkpoint){
+exports.addCheckpoint = function(id, checkpoint){
   specific(id, (e) => {
     var track = JSON.parse(e.pontos_de_parada);
 
@@ -58,6 +58,18 @@ exports.addCheckpoint(id, checkpoint){
     const query = "UPDATE envio SET pontos_de_parada='" + JSON.stringfy(track) + "' WHERE id_envio=" + id + ';';
     database.execSQLQuery(query, (e, r) => {});
   })
+};
+
+exports.by_site = function(idSite, callbackFunction){
+  database.execSQLQuery("SELECT * from envio where id_site= " + idSite + ";", (e, r) => {
+    const all = [];
+
+    for (let i = 0; i < r.length; i += 1) {
+      all.push(new Envio(r[i].id_envio, r[i].cliente, r[i].contato_cliente, r[i].endereco_cliente, r[i].id_site, r[i].CPFentregador, r[i].data_envio, r[i].prazo_previsto, r[i].localizacao, r[i].pontos_de_parada));
+    }
+
+    callbackFunction(all);
+  });
 };
 
 exports.update = function (id, name, contato, endereco) {
