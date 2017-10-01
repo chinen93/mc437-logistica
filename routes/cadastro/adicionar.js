@@ -6,27 +6,62 @@ const router = express.Router();
 
 const Site = require('./../../models/site');
 const Transportadora = require('./../../models/transportadora');
-
+const Entregador = require('./../../models/entregador');
+const Envio = require('./../../models/envio');
+var cadastroWithProblem = false
 
 router.post('/', (req, res) => {
   const tableContent = Object.keys(req.body).map(key => [req.body[key]]);
   const s = req.body;
   const { type } = req.query;
 
-  if (type === 'site') { Site.new(s.txtNome, s.txtContato, s.txtEndereçoWeb); }
-
-  if (type === 'transportadora') { Transportadora.new(s.txtNome, s.txtContato, s.txtPrecoCm, s.txtTaxa); }
-
-  if (type === 'entrega') {
-    const query = "INSERT INTO envio(cliente, contato_cliente, endereco_cliente, id_site, CPFentregador, data_envio, prazo_previsto, localizacao, pontos_de_parada) VALUES ('" + req.body.txtCliente + "', '" + req.body.txtContatoCliente + "', '" + req.body.txtEndCliente + "', '" + req.body.slSite + "',' " + req.body.txtCpfEntregador + "', '" + req.body.txtDataEnv + "', '"
-    + req.body.txtDataPrevista + "', '" + req.body.txtLocal + "', '" + req.body.txtPontosParada + "');";
-
-    // execSQLQuery(query, function(e, r){});
+  if (type === 'site') { 
+    Site.new(s.txtNome, 
+	     s.txtContato, 
+	     s.txtEndereçoWeb);
   }
 
-  res.render('cadastro/confirma', {
-    tableContent
-  });
+  if (type === 'entregador') { 
+      if(!isNaN(parseFloat(s.txtCPF))){
+	Entregador.new(s.txtIdTransportadora,
+		       s.txtCPF, 
+		       s.txtNome, 
+		       s.txtPlacaVeiculo, 
+		       s.txtModeloVeiculo);
+      }else{
+	cadastroWithProblem = true
+      }
+  }
+
+  if (type === 'entrega') { 
+      Site.new(s.txtClientes, 
+	       s.txtContatoCliente, 
+	       s.txtEndCliente, 
+	       s.slSite, 
+	       s.txtCpfEntregador, 
+	       s.txt.DataEnv, 
+	       s.txt.DataPrevista, 
+	       s.txtLocal,  
+	       s.txtPontosParada);
+  }
+
+
+  if (type === 'transportadora') { 
+      if(!isNaN(parseFloat(s.txtPrecoCm)) &&
+	 !isNaN(parseFloat(s.txtTaxa))){
+	Transportadora.new(s.txtNome, 
+			   s.txtContato, 
+			   s.txtPrecoCm, 
+			   s.txtTaxa); 
+      }else{
+	cadastroWithProblem = true
+      }
+  }
+  if(cadastroWithProblem === false){
+      res.redirect('/cadastro/'+type+'?alert=1');
+  }else{
+      res.redirect('/cadastro/'+type+'?alert=0');
+  }
 });
 
 

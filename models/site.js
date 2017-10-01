@@ -32,16 +32,19 @@ exports.all = function (callbackFunction) {
 
 exports.delete = function (id) {
   var query = "DELETE FROM site WHERE id_site= " + id + ";";
-  database.execSQLQuery(query + id + ';', () => {});
+  database.execSQLQuery(query, () => {});
 };
 
 exports.specific = function (id) {
   var query = "SELECT * from site where id_site=" + id + ";";
-  database.execSQLQuery(query + id + ';', (e, r) => {
+  database.execSQLQuery(query, (e, r) => {
     const allSites = [];
 
     for (let i = 0; i < r.length; i += 1) {
-      allSites.push(new Site(r[i].id_site, r[i].nome, r[i].contato_responsavel_site, r[i].endereco_site));
+      allSites.push(new Site(r[i].id_site, 
+			     r[i].nome, 
+			     r[i].contato_responsavel_site, 
+			     r[i].endereco_site));
     }
 
     callbackFunction(allSites);
@@ -50,6 +53,7 @@ exports.specific = function (id) {
 
 exports.alter = function (id, name, contato, endereco) {
   const query = "UPDATE site SET contato_responsavel_site='" + contato + "', 'nome='" + nome + "', '" + endereco + "' WHERE id_site=" + id + ';';
+  database.execSQLQuery(query, () => {});
 };
 
 exports.findByAttribute = function (atts) {

@@ -72,6 +72,10 @@ router.get('/transportadora', (req, res) => {
   const tableHeader = [
     '#', 'Nome', 'Contato', 'Taxa', 'Preço/cm³'
   ];
+
+  const { alert } = req.query;
+    
+
   Transportadora.all(function(r){
     var tableContent = [];
 
@@ -88,6 +92,7 @@ router.get('/transportadora', (req, res) => {
       var dropdownTitle = undefined;
 
       res.render('cadastro/index', {
+	alert,
 	cadastroTitle,
 	tableLabel,
 	tableHeader,
@@ -111,15 +116,6 @@ router.get('/transportadora', (req, res) => {
 
 router.get('/entregador', (req, res) => {
   const cadastroTitle = 'Cadastro de Entregador da Transportadora X';
-  const tableLabel = 'Entregadores';
-  const tableHeader = [
-    '#', 'CPF', 'Nome', 'Placa Veículo', 'Modelo Veículo'
-  ];
-  const tableContent = [
-    ['1', '123456', 'Paulo', 'CCC1234', 'Carro 1'],
-    ['2', '123457', 'Janeiro', 'AAA5678', 'Carro 3'],
-    ['3', '333414', 'Brasílio', 'PLA1234', 'Carro 4']
-  ];
   const formAdicionar = {
     action: '/adicionar',
     type: 'adicionar',
@@ -151,20 +147,46 @@ router.get('/entregador', (req, res) => {
       { titulo: 'Modelo Veículo', identificador: 'txtModeloVeiculo' }
     ]
   };
+
+  const tableLabel = 'Entregadores';
+  const tableHeader = [
+    '#', 'CPF', 'Nome', 'Placa Veículo', 'Modelo Veículo'
+  ];
   const formType = 'entregador';
 
-  res.render('cadastro/index', {
-    cadastroTitle,
-    tableLabel,
-    tableHeader,
-    tableContent,
-    formAdicionar,
-    formRemover,
-    formAlterar,
-    formType
+  const { alert } = req.query;    
+
+  Entregador.all(function(r){
+    var tableContent = [];
+
+    console.log(r);
+    for (var i = 0; i < r.length; i++)
+      tableContent.push([r[i].id, 
+			 r[i].CPF, 
+			 r[i].nome, 
+			 r[i].placaVeiculo, 
+			 r[i].modeloVeiculo])
+
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
+
+      res.render('cadastro/index', {
+	  alert,
+	  cadastroTitle,
+	  tableLabel,
+	  tableHeader,
+	  tableContent,
+	  formAdicionar,
+	  formRemover,
+	  formAlterar,
+	  formType
+      });
+      const nome = req.body.txtName;
+      console.log('get' + nome);
   });
-  const nome = req.body.txtName;
-  console.log('get' + nome);
+
+ 
 });
 
 // ----------------------------------------------------------------------------
@@ -227,6 +249,7 @@ router.get('/site', (req, res) => {
       var dropdownTitle = undefined;
 
       res.render('cadastro/index', {
+	alert,
 	cadastroTitle,
 	tableLabel,
 	tableHeader,
@@ -322,18 +345,39 @@ router.get('/entrega', (req, res) => {
   };
   const formType = 'entrega';
 
-  res.render('cadastro/index', {
-    cadastroTitle,
-    tableLabel,
-    tableHeader,
-    tableContent,
-    formAdicionar,
-    formRemover,
-    formAlterar,
-    formType
+   Entrega.all(function(r){
+    var tableContent = [];
+
+    console.log(r);
+    for (var i = 0; i < r.length; i++)
+      tableContent.push([r[i].id, 
+			 r[i].cliente, 
+			 r[i].contatoCliente, 
+			 r[i].endCliente, 
+			 r[i].slSite, 
+			 r[i].dataEnv, 
+			 r[i].dataPrevista, 
+			 r[i].local, 
+			 r[i].pontosParada])
+
+      var listCadastroSubtitle = undefined;
+      var dropdownList = undefined;
+      var dropdownTitle = undefined;
+
+      res.render('cadastro/index', {
+	  alert,
+	  cadastroTitle,
+	  tableLabel,
+	  tableHeader,
+	  tableContent,
+	  formAdicionar,
+	  formRemover,
+	  formAlterar,
+	  formType
+      });
+       const nome = req.body.txtName;
+       console.log('get' + nome);
   });
-  const nome = req.body.txtName;
-  console.log('get' + nome);
 });
 
 

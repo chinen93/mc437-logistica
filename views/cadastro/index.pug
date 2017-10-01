@@ -27,6 +27,10 @@ mixin create-form(formulario)
     +submit("" + formulario.submitTxt)
 
 block content
+  if alert == 1
+    +alert-ix-success(" Operação realizada com sucesso")
+  if alert == 0
+    +alert-ix-danger(" Operação não realizada, possívelmente dados inconsistentes")
 
   +panel-primary(cadastroTitle)
     +tab-list(["Adicionar", "Alterar", "Remover"])
