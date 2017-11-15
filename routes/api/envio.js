@@ -7,10 +7,10 @@ const router = express.Router();
 const Envio = require('./../../models/envio');
 
 router.get('/', (req, res) => {
-  const { site_id } = req.query;
+  const { id_site } = req.query;
 
-  if (site_id) {
-    Envio.by_site(site_id, (results) => {
+  if (id_site) {
+    Envio.by_site({ id_site }, (results) => {
       res.send(results);
     });
   }
@@ -20,47 +20,78 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:envio_id', (req, res) => {
-  const { envio_id } = req.params;
+router.get('/:id_pacote', (req, res) => {
+  const { id_pacote: id } = req.params;
 
-  Envio.specific(envio_id, (results) => {
-    if (results)
-      res.send(results);
+  Envio.specific({ id }, (results) => {
+    res.send(results);
+  });
+});
+
+router.get('/:id_pacote/status', (req, res) => {
+  const { id_pacote: id } = req.params;
+
+  Envio.status({ id }, (results) => {
+    res.send(results);
   });
 });
 
 router.post('/', (req, res) => {
   const {
-    cliente,
-    contato_cliente,
-    endereco_cliente,
     id_site,
-    CPFentregador,
-    data_envio,
-    prazo_previsto,
-    localizacao,
-    pontos_de_parada
+    volume,
+    destinatario,
+    partida_cep,
+    partida_numero,
+    partida_estado,
+    partida_cidade,
+    partida_endereco,
+    destino_cep,
+    destino_numero,
+    destino_estado,
+    destino_cidade,
+    destino_endereco
   } = req.query;
 
-  if (!(cliente && contato_cliente && endereco_cliente && id_site &&
-  CPFentregador && data_envio && prazo_previsto && localizacao && pontos_de_parada)) {
-    res.send('Faltando informação');
+  if (!(id_site && volume && destino_cep && destino_numero &&
+    destino_estado && destino_cidade && destino_endereco && destinatario &&
+    id_site)) {
+    res.send({ error: 'Faltando informação' });
+    return;
   }
 
-  Envio.new(
-    cliente,
-    contato_cliente,
-    endereco_cliente,
-    id_site,
-    CPFentregador,
-    data_envio,
-    prazo_previsto,
-    localizacao,
-    pontos_de_parada, () => {
-      res.send('Novo envio inserido');
-    }
-  );
+  Envio.new({
+    volume,
+    destinatario,
+    partida_cep,
+    partida_numero,
+    partida_estado,
+    partida_cidade,
+    partida_endereco,
+    destino_cep,
+    destino_numero,
+    destino_estado,
+    destino_cidade,
+    destino_endereco,
+    id_site
+  }, (data) => {
+    res.send(data);
+  });
 });
 
+router.put('/:id_pacote/update', (req, res) => {
+  const { id_pacote: id } = req.params;
+
+  Envio.update({ id }, (data) => {
+    res.send(data);
+  });
+});
+
+router.put('/:id_pacote/cancela', (req, res) => {
+  const { id_pacote: id } = req.params;
+  Envio.cancel({ id }, (data) => {
+    res.send(data);
+  });
+});
 
 module.exports = router;

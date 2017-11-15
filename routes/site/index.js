@@ -13,10 +13,10 @@ const list = require('./list/index.js');
 
 
 router.use('/', home);
-router.use('/cadastro', cadastro);
-router.use('/cadastro/adicionar', adicionar);
-router.use('/cadastro/alterar', alterar);
-router.use('/cadastro/remover', remover);
-router.use('/list', list);
+// router.use('/cadastro', cadastro);
+// router.use('/cadastro/adicionar', adicionar);
+// router.use('/cadastro/alterar', alterar);
+// router.use('/cadastro/remover', remover);
+// router.use('/list', list);
 
 module.exports = router;

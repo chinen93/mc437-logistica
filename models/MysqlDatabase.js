@@ -11,11 +11,11 @@ exports.execSQLQuery = function (sqlQry, resCallback) {
   });
 
   connection.query(sqlQry, (error, results) => {
-    resCallback(error, results);
-
     connection.end();
 
     console.log(error);
     console.log(results);
+
+    resCallback(error, results);
   });
 };
