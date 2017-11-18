@@ -1,9 +1,14 @@
 const database = require('./MysqlDatabase');
 
-const Site = function (id, nome, email) {
+const Site = function ({
+  id, nome, email, id_endereco, created, modified
+}) {
   this.id = id;
   this.nome = nome;
   this.contato = email;
+  this.id_endereco = id_endereco;
+  this.created = created;
+  this.modified = modified;
 };
 
 exports.new = function (nome, email, onReturn) {
