@@ -58,25 +58,25 @@ exports.vinculate = function ({
   });
 };
 
-exports.desvinculate = function ({
-  id_site
-}, onReturn) {
-  database.execSQLQuery(`SELECT * from site where id=${id_site};`, (e, sites) => {
-    if (!sites.length) {
-      onReturn({ error: 'Não foi possível desvincular o endereço pois o site não foi encontrado' });
-      return;
-    }
-
-    database.execSQLQuery(`UPDATE site SET id_endereco=NULL WHERE id=${id_site};`, (e) => {
-      if (e) {
-        onReturn({ error: 'Erro ao desvincular endereço' });
-        return;
-      }
-
-      onReturn({ message: 'Endereço foi desvinculado com sucesso' });
-    });
-  });
-};
+// exports.desvinculate = function ({
+//   id_site
+// }, onReturn) {
+//   database.execSQLQuery(`SELECT * from site where id=${id_site};`, (e, sites) => {
+//     if (!sites.length) {
+//       onReturn({ error: 'Não foi possível desvincular o endereço pois o site não foi encontrado' });
+//       return;
+//     }
+//
+//     database.execSQLQuery(`UPDATE site SET id_endereco=NULL WHERE id=${id_site};`, (e) => {
+//       if (e) {
+//         onReturn({ error: 'Erro ao desvincular endereço' });
+//         return;
+//       }
+//
+//       onReturn({ message: 'Endereço foi desvinculado com sucesso' });
+//     });
+//   });
+// };
 
 exports.specific = function ({ id }, onReturn) {
   const query = `SELECT * from endereco where id=${id};`;

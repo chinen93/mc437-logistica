@@ -26,11 +26,11 @@ exports.all = function (onReturn) {
 };
 
 
-exports.delete = function ({ id }, onReturn) {
-  const query = `DELETE FROM site WHERE id=${id};`;
-
-  database.execSQLQuery(query, (e, data) => onReturn({ message: data.affectedRows ? 'Site deletado com sucesso' : 'Nenhum dado foi modificado, id não encontrado' }));
-};
+// exports.delete = function ({ id }, onReturn) {
+//   const query = `DELETE FROM site WHERE id=${id};`;
+//
+//   database.execSQLQuery(query, (e, data) => onReturn({ message: data.affectedRows ? 'Site deletado com sucesso' : 'Nenhum dado foi modificado, id não encontrado' }));
+// };
 
 exports.specific = function ({ id }, onReturn) {
   const query = `SELECT * from site where id=${id};`;

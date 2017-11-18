@@ -66,17 +66,17 @@ router.put('/:site_id', (req, res) => {
   });
 });
 
-router.delete('/:id', (req, res) => {
-  Site.delete(req.params, (data) => {
-    res.send(data);
-  });
-});
+// router.delete('/:id', (req, res) => {
+//   Site.delete(req.params, (data) => {
+//     res.send(data);
+//   });
+// });
 
-router.delete('/:id_site/endereco', (req, res) => {
-  Endereco.desvinculate(req.params, (data) => {
-    res.send(data);
-  });
-});
+// router.delete('/:id_site/endereco', (req, res) => {
+//   Endereco.desvinculate(req.params, (data) => {
+//     res.send(data);
+//   });
+// });
 
 
 module.exports = router;
