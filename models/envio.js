@@ -12,6 +12,7 @@ const Pacote = function ({
   id_partida,
   id_destino,
   status,
+  preco,
   destinatario,
   created,
   modified
@@ -22,6 +23,7 @@ const Pacote = function ({
   this.id_partida = id_partida;
   this.id_destino = id_destino;
   this.status = status;
+  this.preco = preco;
   this.destinatario = destinatario;
   this.created = created;
   this.modified = modified;
